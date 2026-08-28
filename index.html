@@ -3,32 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FS25 Post-Harvest & Rotation Assistant | Precision Farming & Crop Rotation</title>
-  <meta name="description" content="Assistant agronomique pour Farming Simulator 25 avec Precision Farming et Crop Rotation. Déterminez la culture suivante optimale et vos travaux post-récolte.">
+  <title>FS25 - Planificateur Post-Récolte & Assolement</title>
+  <meta name="description" content="Planificateur agronomique pour Farming Simulator 25 avec Precision Farming, Crop Rotation et l'ensemble des extensions dont Highlands Fishing.">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-  <!-- ==================== EN-TÊTE ÉPURÉ ==================== -->
+  <!-- ==================== EN-TÊTE SOBRE ==================== -->
   <header class="app-header">
     <div class="header-content">
       <div class="brand-wrapper">
-        <span class="brand-logo">🚜</span>
         <div>
           <div class="d-flex gap-2 align-items-center mb-1">
             <span class="brand-badge-game">FS25</span>
-            <span class="brand-badge-pf">🔬 PRECISION FARMING</span>
-            <span class="brand-badge-cr">🔄 CROP ROTATION</span>
-            <span class="brand-badge-dlc">📦 TOUS DLCs</span>
+            <span class="brand-badge-pf">Precision Farming</span>
+            <span class="brand-badge-cr">Crop Rotation</span>
+            <span class="brand-badge-dlc">Highlands Fishing & DLCs</span>
           </div>
           <h1 class="brand-title">Planificateur Post-Récolte & Assolement</h1>
-          <p class="brand-subtitle">Recommandation de la culture N+1, diagnostic couvert végétal et travaux du sol optimaux</p>
+          <p class="brand-subtitle">Recommandation de la culture N+1, diagnostic de couvert végétal et itinéraire technique post-récolte</p>
         </div>
       </div>
 
       <div class="header-actions">
-        <button class="btn btn-secondary btn-sm" id="btn-toggle-theme" title="Changer de thème (Automatique par défaut)">
-          <span id="theme-icon-indicator">💻</span> <span id="theme-text-indicator" class="d-none-mobile">Auto (Système)</span>
+        <button class="btn btn-secondary btn-sm" id="btn-toggle-theme" title="Changer de thème">
+          <span id="theme-text-indicator">Thème : Auto (Système)</span>
         </button>
       </div>
     </div>
@@ -37,18 +36,18 @@
   <!-- ==================== CONTENEUR PRINCIPAL ==================== -->
   <main class="app-container">
 
-    <!-- ==================== FORMULAIRE DE CONFIGURATION DE LA PARCELLE ==================== -->
+    <!-- ==================== FORMULAIRE DE CONFIGURATION ==================== -->
     <section class="card config-panel-card mb-4">
       <div class="config-panel-header">
-        <h2 class="config-section-title">⚙️ 1. Paramètres de la Parcelle (Cultures & Sols)</h2>
-        <p class="text-muted text-sm">Renseignez la culture récoltée cette année, celle de l'année précédente et la distribution des types de sol de votre carte Precision Farming.</p>
+        <h2 class="config-section-title">1. Paramètres de la Parcelle</h2>
+        <p class="text-muted text-sm">Renseignez la culture récoltée cette année (N), la précédente (N-1) et la distribution des types de sol issue de votre analyse Precision Farming.</p>
       </div>
 
       <div class="config-grid-3">
-        <!-- Culture N (Récoltée cette année) -->
+        <!-- Culture N -->
         <div class="form-group">
           <label class="form-label" for="select-crop-n">
-            <span class="label-badge-n">Année N</span> Culture récoltée cette année * :
+            <span class="label-badge-n">Année N</span> Culture récoltée cette année :
           </label>
           <select id="select-crop-n" class="form-select font-bold select-highlight">
             <!-- Rempli dynamiquement -->
@@ -56,7 +55,7 @@
           <div class="text-xs text-muted mt-1">Culture venant de libérer la parcelle</div>
         </div>
 
-        <!-- Culture N-1 (Année précédente) -->
+        <!-- Culture N-1 -->
         <div class="form-group">
           <label class="form-label" for="select-crop-n-minus-1">
             <span class="label-badge-n-1">Année N-1</span> Culture de l'année précédente :
@@ -64,59 +63,61 @@
           <select id="select-crop-n-minus-1" class="form-select font-bold">
             <!-- Rempli dynamiquement -->
           </select>
-          <div class="text-xs text-muted mt-1">Historique pour le calcul du mod Crop Rotation</div>
+          <div class="text-xs text-muted mt-1">Précédent cultural pour le mod Crop Rotation</div>
         </div>
 
         <!-- Gestion des Pailles -->
         <div class="form-group">
           <label class="form-label" for="select-straw-handling">
-            <span class="label-badge-straw">Paille</span> Gestion des résidus de récolte :
+            <span class="label-badge-straw">Paille</span> Gestion des résidus :
           </label>
           <select id="select-straw-handling" class="form-select">
-            <option value="chopped" selected>⚙️ Pailles broyées par la moissonneuse (ou sans paille)</option>
-            <option value="bales">📦 Andains de paille laissés au sol (À presser / ramasser)</option>
+            <option value="chopped" selected>Pailles broyées par la moissonneuse (ou sans paille)</option>
+            <option value="bales">Andains de paille laissés au sol (Pressage en balles)</option>
           </select>
-          <div class="text-xs text-muted mt-1">Influe sur l'étape 1 des travaux du sol</div>
+          <div class="text-xs text-muted mt-1">Conditionne l'étape initiale du chantier</div>
         </div>
       </div>
 
-      <!-- DISTRIBUTION DU TYPE DE SOL (PRECISION FARMING) -->
+      <!-- DISTRIBUTION DU TYPE DE SOL (ORDRE STRICT DEMANDÉ) -->
       <div class="soil-distribution-section mt-3 pt-3 border-top">
         <div class="d-flex justify-between align-items-center flex-wrap gap-2 mb-2">
           <div>
             <label class="form-label font-bold mb-0">
-              🔬 Distribution des Types de Sol (Precision Farming) — Total : <span id="soil-total-indicator">100%</span>
+              Distribution des Types de Sol (Precision Farming) — Total : <span id="soil-total-indicator">100%</span>
             </label>
-            <div class="text-xs text-muted">Ajustez la répartition selon votre carte des sols ou utilisez un préréglage rapide :</div>
+            <div class="text-xs text-muted">Ajustez la répartition en pourcentage selon votre carte des sols :</div>
           </div>
 
           <!-- Préréglages rapides -->
           <div class="soil-presets-wrap">
-            <button type="button" class="btn-soil-preset" data-preset="loam-pure">100% Glaise (Max 125%)</button>
-            <button type="button" class="btn-soil-preset" data-preset="balanced">Équilibré (Glaise 50% / Glaise sableuse 30% / Argile 20%)</button>
-            <button type="button" class="btn-soil-preset" data-preset="clay">Terre lourde (Argile limoneuse 60%)</button>
-            <button type="button" class="btn-soil-preset" data-preset="sandy">Terre légère (Sable glaiseux 50% / 30%)</button>
+            <button type="button" class="btn-soil-preset" data-preset="loamy-sand-pure">100% Sable glaiseux</button>
+            <button type="button" class="btn-soil-preset" data-preset="sandy-loam-pure">100% Glaise sableuse</button>
+            <button type="button" class="btn-soil-preset" data-preset="loam-pure">100% Glaise</button>
+            <button type="button" class="btn-soil-preset" data-preset="silty-clay-pure">100% Argile limoneuse</button>
+            <button type="button" class="btn-soil-preset" data-preset="balanced">Équilibré</button>
           </div>
         </div>
 
+        <!-- Grille ordonnée strictement : 1. Sable glaiseux, 2. Glaise sableuse, 3. Glaise, 4. Argile limoneuse -->
         <div class="soil-inputs-grid">
-          <!-- Glaise / Loam -->
-          <div class="soil-input-card soil-loam">
+          <!-- 1. Sable glaiseux / Loamy Sand -->
+          <div class="soil-input-card soil-loamy-sand">
             <div class="soil-card-header">
-              <span class="soil-badge">Glaise (Loam)</span>
-              <span class="soil-max-yield">Max 125%</span>
+              <span class="soil-badge">1. Sable glaiseux</span>
+              <span class="soil-max-yield">Max 80%</span>
             </div>
             <div class="soil-slider-wrap">
-              <input type="number" id="soil-loam-val" min="0" max="100" class="form-control form-control-sm text-center" value="60">
+              <input type="number" id="soil-loamy-sand-val" min="0" max="100" class="form-control form-control-sm text-center" value="0">
               <span class="soil-percent-sign">%</span>
             </div>
-            <div class="soil-card-hint text-xs text-muted">pH optimal : 6.75</div>
+            <div class="soil-card-hint text-xs text-muted">pH optimal : 6.00</div>
           </div>
 
-          <!-- Glaise sableuse / Sandy Loam -->
+          <!-- 2. Glaise sableuse / Sandy Loam -->
           <div class="soil-input-card soil-sandy-loam">
             <div class="soil-card-header">
-              <span class="soil-badge">Glaise sableuse</span>
+              <span class="soil-badge">2. Glaise sableuse</span>
               <span class="soil-max-yield">Max 100%</span>
             </div>
             <div class="soil-slider-wrap">
@@ -126,10 +127,23 @@
             <div class="soil-card-hint text-xs text-muted">pH optimal : 6.50</div>
           </div>
 
-          <!-- Argile limoneuse / Silty Clay -->
+          <!-- 3. Glaise / Loam -->
+          <div class="soil-input-card soil-loam">
+            <div class="soil-card-header">
+              <span class="soil-badge">3. Glaise</span>
+              <span class="soil-max-yield">Max 125%</span>
+            </div>
+            <div class="soil-slider-wrap">
+              <input type="number" id="soil-loam-val" min="0" max="100" class="form-control form-control-sm text-center" value="60">
+              <span class="soil-percent-sign">%</span>
+            </div>
+            <div class="soil-card-hint text-xs text-muted">pH optimal : 6.75</div>
+          </div>
+
+          <!-- 4. Argile limoneuse / Silty Clay -->
           <div class="soil-input-card soil-silty-clay">
             <div class="soil-card-header">
-              <span class="soil-badge">Argile limoneuse</span>
+              <span class="soil-badge">4. Argile limoneuse</span>
               <span class="soil-max-yield">Max 110%</span>
             </div>
             <div class="soil-slider-wrap">
@@ -138,25 +152,11 @@
             </div>
             <div class="soil-card-hint text-xs text-muted">pH optimal : 7.00</div>
           </div>
-
-          <!-- Sable glaiseux / Loamy Sand -->
-          <div class="soil-input-card soil-loamy-sand">
-            <div class="soil-card-header">
-              <span class="soil-badge">Sable glaiseux</span>
-              <span class="soil-max-yield">Max 80%</span>
-            </div>
-            <div class="soil-slider-wrap">
-              <input type="number" id="soil-loamy-sand-val" min="0" max="100" class="form-control form-control-sm text-center" value="0">
-              <span class="soil-percent-sign">%</span>
-            </div>
-            <div class="soil-card-hint text-xs text-muted">pH optimal : 6.00</div>
-          </div>
         </div>
       </div>
     </section>
 
-
-    <!-- ==================== RÉSULTATS DYNAMIQUES D'ANALYSE ==================== -->
+    <!-- ==================== RÉSULTATS D'ANALYSE ==================== -->
     <div id="analysis-results-container">
       <!-- Rempli en direct par app.js -->
     </div>
