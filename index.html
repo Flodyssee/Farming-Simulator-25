@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FS25 Post-Harvest & Rotation Assistant | Precision Farming & Crop Rotation</title>
+  <meta name="description" content="Assistant agronomique pour Farming Simulator 25 avec Precision Farming et Crop Rotation. Déterminez la culture suivante optimale et vos travaux post-récolte.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ==================== EN-TÊTE ÉPURÉ ==================== -->
+  <header class="app-header">
+    <div class="header-content">
+      <div class="brand-wrapper">
+        <span class="brand-logo">🚜</span>
+        <div>
+          <div class="d-flex gap-2 align-items-center mb-1">
+            <span class="brand-badge-game">FS25</span>
+            <span class="brand-badge-pf">🔬 PRECISION FARMING</span>
+            <span class="brand-badge-cr">🔄 CROP ROTATION</span>
+            <span class="brand-badge-dlc">📦 TOUS DLCs</span>
+          </div>
+          <h1 class="brand-title">Planificateur Post-Récolte & Assolement</h1>
+          <p class="brand-subtitle">Recommandation de la culture N+1, diagnostic couvert végétal et travaux du sol optimaux</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn btn-secondary btn-sm" id="btn-toggle-theme" title="Changer de thème (Automatique par défaut)">
+          <span id="theme-icon-indicator">💻</span> <span id="theme-text-indicator" class="d-none-mobile">Auto (Système)</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== CONTENEUR PRINCIPAL ==================== -->
+  <main class="app-container">
+
+    <!-- ==================== FORMULAIRE DE CONFIGURATION DE LA PARCELLE ==================== -->
+    <section class="card config-panel-card mb-4">
+      <div class="config-panel-header">
+        <h2 class="config-section-title">⚙️ 1. Paramètres de la Parcelle (Cultures & Sols)</h2>
+        <p class="text-muted text-sm">Renseignez la culture récoltée cette année, celle de l'année précédente et la distribution des types de sol de votre carte Precision Farming.</p>
+      </div>
+
+      <div class="config-grid-3">
+        <!-- Culture N (Récoltée cette année) -->
+        <div class="form-group">
+          <label class="form-label" for="select-crop-n">
+            <span class="label-badge-n">Année N</span> Culture récoltée cette année * :
+          </label>
+          <select id="select-crop-n" class="form-select font-bold select-highlight">
+            <!-- Rempli dynamiquement -->
+          </select>
+          <div class="text-xs text-muted mt-1">Culture venant de libérer la parcelle</div>
+        </div>
+
+        <!-- Culture N-1 (Année précédente) -->
+        <div class="form-group">
+          <label class="form-label" for="select-crop-n-minus-1">
+            <span class="label-badge-n-1">Année N-1</span> Culture de l'année précédente :
+          </label>
+          <select id="select-crop-n-minus-1" class="form-select font-bold">
+            <!-- Rempli dynamiquement -->
+          </select>
+          <div class="text-xs text-muted mt-1">Historique pour le calcul du mod Crop Rotation</div>
+        </div>
+
+        <!-- Gestion des Pailles -->
+        <div class="form-group">
+          <label class="form-label" for="select-straw-handling">
+            <span class="label-badge-straw">Paille</span> Gestion des résidus de récolte :
+          </label>
+          <select id="select-straw-handling" class="form-select">
+            <option value="chopped" selected>⚙️ Pailles broyées par la moissonneuse (ou sans paille)</option>
+            <option value="bales">📦 Andains de paille laissés au sol (À presser / ramasser)</option>
+          </select>
+          <div class="text-xs text-muted mt-1">Influe sur l'étape 1 des travaux du sol</div>
+        </div>
+      </div>
+
+      <!-- DISTRIBUTION DU TYPE DE SOL (PRECISION FARMING) -->
+      <div class="soil-distribution-section mt-3 pt-3 border-top">
+        <div class="d-flex justify-between align-items-center flex-wrap gap-2 mb-2">
+          <div>
+            <label class="form-label font-bold mb-0">
+              🔬 Distribution des Types de Sol (Precision Farming) — Total : <span id="soil-total-indicator">100%</span>
+            </label>
+            <div class="text-xs text-muted">Ajustez la répartition selon votre carte des sols ou utilisez un préréglage rapide :</div>
+          </div>
+
+          <!-- Préréglages rapides -->
+          <div class="soil-presets-wrap">
+            <button type="button" class="btn-soil-preset" data-preset="loam-pure">100% Glaise (Max 125%)</button>
+            <button type="button" class="btn-soil-preset" data-preset="balanced">Équilibré (Glaise 50% / Glaise sableuse 30% / Argile 20%)</button>
+            <button type="button" class="btn-soil-preset" data-preset="clay">Terre lourde (Argile limoneuse 60%)</button>
+            <button type="button" class="btn-soil-preset" data-preset="sandy">Terre légère (Sable glaiseux 50% / 30%)</button>
+          </div>
+        </div>
+
+        <div class="soil-inputs-grid">
+          <!-- Glaise / Loam -->
+          <div class="soil-input-card soil-loam">
+            <div class="soil-card-header">
+              <span class="soil-badge">Glaise (Loam)</span>
+              <span class="soil-max-yield">Max 125%</span>
+            </div>
+            <div class="soil-slider-wrap">
+              <input type="number" id="soil-loam-val" min="0" max="100" class="form-control form-control-sm text-center" value="60">
+              <span class="soil-percent-sign">%</span>
+            </div>
+            <div class="soil-card-hint text-xs text-muted">pH optimal : 6.75</div>
+          </div>
+
+          <!-- Glaise sableuse / Sandy Loam -->
+          <div class="soil-input-card soil-sandy-loam">
+            <div class="soil-card-header">
+              <span class="soil-badge">Glaise sableuse</span>
+              <span class="soil-max-yield">Max 100%</span>
+            </div>
+            <div class="soil-slider-wrap">
+              <input type="number" id="soil-sandy-loam-val" min="0" max="100" class="form-control form-control-sm text-center" value="30">
+              <span class="soil-percent-sign">%</span>
+            </div>
+            <div class="soil-card-hint text-xs text-muted">pH optimal : 6.50</div>
+          </div>
+
+          <!-- Argile limoneuse / Silty Clay -->
+          <div class="soil-input-card soil-silty-clay">
+            <div class="soil-card-header">
+              <span class="soil-badge">Argile limoneuse</span>
+              <span class="soil-max-yield">Max 110%</span>
+            </div>
+            <div class="soil-slider-wrap">
+              <input type="number" id="soil-silty-clay-val" min="0" max="100" class="form-control form-control-sm text-center" value="10">
+              <span class="soil-percent-sign">%</span>
+            </div>
+            <div class="soil-card-hint text-xs text-muted">pH optimal : 7.00</div>
+          </div>
+
+          <!-- Sable glaiseux / Loamy Sand -->
+          <div class="soil-input-card soil-loamy-sand">
+            <div class="soil-card-header">
+              <span class="soil-badge">Sable glaiseux</span>
+              <span class="soil-max-yield">Max 80%</span>
+            </div>
+            <div class="soil-slider-wrap">
+              <input type="number" id="soil-loamy-sand-val" min="0" max="100" class="form-control form-control-sm text-center" value="0">
+              <span class="soil-percent-sign">%</span>
+            </div>
+            <div class="soil-card-hint text-xs text-muted">pH optimal : 6.00</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== RÉSULTATS DYNAMIQUES D'ANALYSE ==================== -->
+    <div id="analysis-results-container">
+      <!-- Rempli en direct par app.js -->
+    </div>
+
+  </main>
+
+  <!-- SCRIPTS -->
+  <script src="js/data/tools-database.js"></script>
+  <script src="js/data/crops-database.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
