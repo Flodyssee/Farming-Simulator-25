@@ -1,0 +1,13 @@
+Enregistré avec le mod FS25_JohnDeere_712
+
+Tous les trajets inclus :
+- Pâturages
+- Productions (au mieux compte tenu des passages étroits)
+- Champs : un seul point d'accès par champ
+
+Remarque : beaucoup de champs disposent de barrières/portails et les accès sont étroits.
+
+En espérant que ce réseau AutoDrive vous sera utile !
+
+Créateur original : Chris55_PowerTonado
+Traduction des marqueurs en français effectuée.
