@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FS25 - Planificateur Post-Récolte & Assolement</title>
-  <meta name="description" content="Planificateur agronomique pour Farming Simulator 25 avec Precision Farming, Crop Rotation et l'ensemble des extensions dont Highlands Fishing.">
+  <title>FS25 - Planificateur Assolement, Calendrier et Paperasserie (Le Mechet)</title>
+  <meta name="description" content="Planificateur agronomique multi-parcelles pour Farming Simulator 25 sur la carte Le Mechet avec Precision Farming, Crop Rotation et le mod Paperasserie (RedTape).">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -14,14 +14,15 @@
     <div class="header-content">
       <div class="brand-wrapper">
         <div>
-          <div class="d-flex gap-2 align-items-center mb-1">
+          <div class="d-flex gap-2 align-items-center mb-1 flex-wrap">
             <span class="brand-badge-game">FS25</span>
-            <span class="brand-badge-pf">Precision Farming</span>
-            <span class="brand-badge-cr">Crop Rotation</span>
-            <span class="brand-badge-dlc">Highlands Fishing & DLCs</span>
+            <span class="brand-badge-map">Carte Le Mechet</span>
+            <span class="brand-badge-pf">Agriculture de précision</span>
+            <span class="brand-badge-cr">Rotation des cultures</span>
+            <span class="brand-badge-redtape">Paperasserie</span>
           </div>
-          <h1 class="brand-title">Planificateur Post-Récolte & Assolement</h1>
-          <p class="brand-subtitle">Recommandation de la culture N+1, diagnostic de couvert végétal et itinéraire technique post-récolte</p>
+          <h1 class="brand-title">Planificateur d'Assolement & Calendrier Mensuel</h1>
+          <p class="brand-subtitle">Gestion multi-parcelles, historique sur 5 ans, calendrier des travaux mois par mois et conformité réglementaire</p>
         </div>
       </div>
 
@@ -36,57 +37,96 @@
   <!-- ==================== CONTENEUR PRINCIPAL ==================== -->
   <main class="app-container">
 
-    <!-- ==================== FORMULAIRE DE CONFIGURATION ==================== -->
-    <section class="card config-panel-card mb-4">
+    <!-- ==================== BARRE DE GESTION MULTI-PARCELLES ==================== -->
+    <section class="parcel-switcher-card card mb-3">
+      <div class="d-flex justify-between align-items-center mb-2 flex-wrap gap-2">
+        <h2 class="config-section-title mb-0">Mes Parcelles (Exploitation Le Mechet)</h2>
+        <span class="text-xs text-muted">Basculez d'un champ à l'autre en un clic sans perdre vos données</span>
+      </div>
+      <div id="parcel-switcher-tabs" class="parcel-switcher-wrapper">
+        <!-- Rempli dynamiquement par app.js -->
+      </div>
+    </section>
+
+    <!-- ==================== FORMULAIRE DE CONFIGURATION DU CHAMP ACTIF (HISTORIQUE 5 ANS) ==================== -->
+    <section class="card config-panel-card mb-4" id="config-form-section">
       <div class="config-panel-header">
-        <h2 class="config-section-title">1. Paramètres de la Parcelle</h2>
-        <p class="text-muted text-sm">Renseignez la culture récoltée cette année (N), la précédente (N-1) et la distribution des types de sol issue de votre analyse Precision Farming.</p>
+        <h3 class="section-title-sm">1. Historique des 5 Dernières Cultures de la Parcelle</h3>
+        <p class="text-muted text-xs">Renseignez la culture récoltée cette année (N) et les 4 années précédentes issues du mod Paperasserie (RedTape).</p>
       </div>
 
-      <div class="config-grid-3">
-        <!-- Culture N -->
+      <!-- Grille des 5 années d'historique + gestion des pailles -->
+      <div class="config-grid-history mt-2">
+        <!-- Année N (Récoltée cette année) -->
         <div class="form-group">
           <label class="form-label" for="select-crop-n">
-            <span class="label-badge-n">Année N</span> Culture récoltée cette année :
+            <span class="label-badge-n">Année N</span> Récolte en cours / récente * :
           </label>
           <select id="select-crop-n" class="form-select font-bold select-highlight">
             <!-- Rempli dynamiquement -->
           </select>
-          <div class="text-xs text-muted mt-1">Culture venant de libérer la parcelle</div>
         </div>
 
-        <!-- Culture N-1 -->
+        <!-- Année N-1 -->
         <div class="form-group">
-          <label class="form-label" for="select-crop-n-minus-1">
-            <span class="label-badge-n-1">Année N-1</span> Culture de l'année précédente :
+          <label class="form-label" for="select-crop-n1">
+            <span class="label-badge-n-prev">Année N-1</span> Précédent direct :
           </label>
-          <select id="select-crop-n-minus-1" class="form-select font-bold">
+          <select id="select-crop-n1" class="form-select">
             <!-- Rempli dynamiquement -->
           </select>
-          <div class="text-xs text-muted mt-1">Précédent cultural pour le mod Crop Rotation</div>
+        </div>
+
+        <!-- Année N-2 -->
+        <div class="form-group">
+          <label class="form-label" for="select-crop-n2">
+            <span class="label-badge-n-prev">Année N-2</span> Précédent N-2 :
+          </label>
+          <select id="select-crop-n2" class="form-select">
+            <!-- Rempli dynamiquement -->
+          </select>
+        </div>
+
+        <!-- Année N-3 -->
+        <div class="form-group">
+          <label class="form-label" for="select-crop-n3">
+            <span class="label-badge-n-prev">Année N-3</span> Précédent N-3 :
+          </label>
+          <select id="select-crop-n3" class="form-select">
+            <!-- Rempli dynamiquement -->
+          </select>
+        </div>
+
+        <!-- Année N-4 -->
+        <div class="form-group">
+          <label class="form-label" for="select-crop-n4">
+            <span class="label-badge-n-prev">Année N-4</span> Précédent N-4 :
+          </label>
+          <select id="select-crop-n4" class="form-select">
+            <!-- Rempli dynamiquement -->
+          </select>
         </div>
 
         <!-- Gestion des Pailles -->
         <div class="form-group">
           <label class="form-label" for="select-straw-handling">
-            <span class="label-badge-straw">Paille</span> Gestion des résidus :
+            <span class="label-badge-straw">Paille</span> Résidus de récolte :
           </label>
           <select id="select-straw-handling" class="form-select">
             <option value="chopped" selected>Pailles broyées par la moissonneuse (ou sans paille)</option>
             <option value="bales">Andains de paille laissés au sol (Pressage en balles)</option>
           </select>
-          <div class="text-xs text-muted mt-1">Conditionne l'étape initiale du chantier</div>
         </div>
       </div>
 
-      <!-- DISTRIBUTION DU TYPE DE SOL (ORDRE STRICT DEMANDÉ) -->
+      <!-- DISTRIBUTION DU TYPE DE SOL (ORDRE STRICT DEMANDÉ SANS ÉQUIVALENTS ANGLAIS) -->
       <div class="soil-distribution-section mt-3 pt-3 border-top">
         <div class="d-flex justify-between align-items-center flex-wrap gap-2 mb-2">
           <div>
             <label class="form-label font-bold mb-0">
-              Distribution des Types de Sol (Precision Farming) — Total : <span id="soil-total-indicator">100%</span>
+              Distribution des Types de Sol (Agriculture de précision) — Total : <span id="soil-total-indicator">100%</span>
             </label>
-            <div class="text-xs text-muted">Ajustez la répartition en pourcentage selon votre carte des sols :</div>
+            <div class="text-xs text-muted">Ajustez la répartition en pourcentage selon votre analyse de sol :</div>
           </div>
 
           <!-- Préréglages rapides -->
@@ -101,7 +141,7 @@
 
         <!-- Grille ordonnée strictement : 1. Sable glaiseux, 2. Glaise sableuse, 3. Glaise, 4. Argile limoneuse -->
         <div class="soil-inputs-grid">
-          <!-- 1. Sable glaiseux / Loamy Sand -->
+          <!-- 1. Sable glaiseux -->
           <div class="soil-input-card soil-loamy-sand">
             <div class="soil-card-header">
               <span class="soil-badge">1. Sable glaiseux</span>
@@ -114,7 +154,7 @@
             <div class="soil-card-hint text-xs text-muted">pH optimal : 6.00</div>
           </div>
 
-          <!-- 2. Glaise sableuse / Sandy Loam -->
+          <!-- 2. Glaise sableuse -->
           <div class="soil-input-card soil-sandy-loam">
             <div class="soil-card-header">
               <span class="soil-badge">2. Glaise sableuse</span>
@@ -127,7 +167,7 @@
             <div class="soil-card-hint text-xs text-muted">pH optimal : 6.50</div>
           </div>
 
-          <!-- 3. Glaise / Loam -->
+          <!-- 3. Glaise -->
           <div class="soil-input-card soil-loam">
             <div class="soil-card-header">
               <span class="soil-badge">3. Glaise</span>
@@ -140,7 +180,7 @@
             <div class="soil-card-hint text-xs text-muted">pH optimal : 6.75</div>
           </div>
 
-          <!-- 4. Argile limoneuse / Silty Clay -->
+          <!-- 4. Argile limoneuse -->
           <div class="soil-input-card soil-silty-clay">
             <div class="soil-card-header">
               <span class="soil-badge">4. Argile limoneuse</span>
@@ -156,7 +196,7 @@
       </div>
     </section>
 
-    <!-- ==================== RÉSULTATS D'ANALYSE ==================== -->
+    <!-- ==================== RÉSULTATS D'ANALYSE & CALENDRIER MENSUEL ==================== -->
     <div id="analysis-results-container">
       <!-- Rempli en direct par app.js -->
     </div>

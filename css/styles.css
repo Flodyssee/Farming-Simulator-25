@@ -1,5 +1,5 @@
 /* ==========================================================================
-   FS25 POST-HARVEST, PRECISION FARMING & CROP ROTATION PLANNER
+   FS25 POST-HARVEST, PRECISION FARMING, CROP ROTATION & REDTAPE PLANNER
    Design sobre, épuré et professionnel.
    ========================================================================== */
 
@@ -33,6 +33,10 @@
   --danger-bg: #fef2f2;
   --danger-text: #991b1b;
   --danger-border: #fecaca;
+
+  --warning-bg: #fffbeb;
+  --warning-text: #92400e;
+  --warning-border: #fde68a;
 
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07);
@@ -72,6 +76,10 @@
     --danger-text: #fecaca;
     --danger-border: #991b1b;
 
+    --warning-bg: #451a03;
+    --warning-text: #fde68a;
+    --warning-border: #92400e;
+
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
     --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.6);
@@ -105,6 +113,10 @@
   --danger-bg: #450a0a;
   --danger-text: #fecaca;
   --danger-border: #991b1b;
+
+  --warning-bg: #451a03;
+  --warning-text: #fde68a;
+  --warning-border: #92400e;
 }
 
 /* ==================== BASE & RESET ==================== */
@@ -129,6 +141,7 @@ body {
 .align-items-center { align-items: center; }
 .align-items-start { align-items: flex-start; }
 .flex-wrap { flex-wrap: wrap; }
+.gap-1 { gap: 0.25rem; }
 .gap-2 { gap: 0.5rem; }
 .gap-3 { gap: 1rem; }
 .mb-0 { margin-bottom: 0 !important; }
@@ -137,6 +150,7 @@ body {
 .mb-3 { margin-bottom: 0.75rem !important; }
 .mb-4 { margin-bottom: 1.5rem !important; }
 .mt-1 { margin-top: 0.25rem !important; }
+.mt-2 { margin-top: 0.5rem !important; }
 .mt-3 { margin-top: 0.75rem !important; }
 .mt-4 { margin-top: 1.5rem !important; }
 .pt-3 { padding-top: 0.75rem !important; }
@@ -165,7 +179,7 @@ body {
   z-index: 100;
   backdrop-filter: blur(8px);
   box-shadow: var(--shadow-sm);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .header-content {
@@ -216,6 +230,24 @@ body {
   color: #0f172a;
 }
 
+.brand-badge-map {
+  background: #0284c7;
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
+.brand-badge-redtape {
+  background: #b45309;
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
 .brand-badge-pf, .brand-badge-cr, .brand-badge-dlc {
   background: var(--bg-surface-subtle);
   color: var(--text-muted);
@@ -256,6 +288,7 @@ body {
 
 .btn-secondary:hover {
   background: var(--bg-card-hover);
+  border-color: var(--primary-600);
 }
 
 .btn-sm {
@@ -263,19 +296,79 @@ body {
   font-size: 0.8rem;
 }
 
-/* ==================== FORMULAIRE DE CONFIGURATION ==================== */
+.btn-xs {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.75rem;
+  border-radius: var(--radius-sm);
+}
+
+/* ==================== BARRE DE PARCELLES MULTI-CHAMPS ==================== */
+.parcel-switcher-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.parcel-tabs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.parcel-tab-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+  transition: var(--transition);
+  min-width: 140px;
+}
+
+.parcel-tab-btn:hover {
+  border-color: var(--primary-600);
+  background: var(--bg-card-hover);
+}
+
+.parcel-tab-btn.active {
+  background: var(--bg-surface);
+  border-color: var(--primary-600);
+  outline: 2px solid var(--primary-600);
+}
+
+.parcel-tab-name {
+  font-size: 0.82rem;
+  color: var(--text-main);
+}
+
+.parcel-tab-crops {
+  font-size: 0.7rem;
+}
+
+.parcel-actions-wrap {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+/* ==================== FORMULAIRE HISTORIQUE 5 ANS ==================== */
 .config-section-title {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 800;
   color: var(--text-main);
   margin-bottom: 0.2rem;
 }
 
-.config-grid-3 {
+.config-grid-history {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.25rem;
-  margin-top: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
 }
 
 .form-group {
@@ -287,13 +380,13 @@ body {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--text-main);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.35rem;
 }
 
-.label-badge-n, .label-badge-n-1, .label-badge-straw {
+.label-badge-n {
   background: var(--primary-700);
   color: #ffffff;
   font-size: 0.68rem;
@@ -302,22 +395,33 @@ body {
   font-weight: 700;
 }
 
-[data-theme="dark"] .label-badge-n,
-[data-theme="dark"] .label-badge-n-1,
-[data-theme="dark"] .label-badge-straw {
-  background: var(--primary-600);
-  color: #0f172a;
+.label-badge-n-prev {
+  background: #475569;
+  color: #ffffff;
+  font-size: 0.68rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.label-badge-straw {
+  background: #b45309;
+  color: #ffffff;
+  font-size: 0.68rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-weight: 700;
 }
 
 .form-select, .form-control {
   width: 100%;
-  padding: 0.65rem 0.85rem;
+  padding: 0.6rem 0.75rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-color);
   background: var(--bg-surface);
   color: var(--text-main);
   transition: var(--transition);
-  font-size: 0.92rem;
+  font-size: 0.88rem;
 }
 
 .form-select:focus, .form-control:focus {
@@ -420,6 +524,103 @@ body {
   padding: 0.35rem 0.5rem;
   font-size: 0.95rem;
   font-weight: 800;
+}
+
+/* ==================== FRISE CHRONOLOGIQUE HISTORIQUE 5 ANS ==================== */
+.history-ribbon-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.5rem 0;
+}
+
+.history-step-node {
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.5rem 0.75rem;
+  min-width: 130px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.history-current {
+  border-color: var(--primary-600);
+  background: var(--primary-50);
+}
+
+[data-theme="dark"] .history-current {
+  background: rgba(45, 106, 79, 0.2);
+}
+
+.history-target {
+  border: 2px solid #10b981;
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.history-node-label {
+  color: var(--text-muted);
+  margin-bottom: 0.15rem;
+}
+
+.history-node-crop {
+  color: var(--text-main);
+}
+
+.history-connector {
+  color: var(--text-muted);
+  font-weight: bold;
+}
+
+/* ==================== AUDIT PAPERASSERIE (REDTAPE) ==================== */
+.redtape-banner {
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+  border: 1px solid transparent;
+}
+
+.redtape-warning {
+  background: var(--warning-bg);
+  border-color: var(--warning-border);
+  color: var(--warning-text);
+}
+
+.redtape-success {
+  background: var(--status-done-bg);
+  border-color: var(--status-done-border);
+  color: var(--status-done-text);
+}
+
+.redtape-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.35rem;
+}
+
+.badge-redtape-status {
+  background: #f59e0b;
+  color: #111827;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.badge-redtape-ok {
+  background: #10b981;
+  color: #ffffff;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.redtape-issues-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  line-height: 1.4;
 }
 
 /* ==================== RÉSULTATS D'ANALYSE ==================== */
@@ -595,78 +796,47 @@ body {
   cursor: pointer;
 }
 
-/* ==================== COUVERT VÉGÉTAL ==================== */
-.cover-crop-alert-box {
+/* ==================== CALENDRIER MENSUEL DES TRAVAUX ==================== */
+.monthly-timeline-block {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: 1rem 1.25rem;
+}
+
+.monthly-header-badge {
   display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-color);
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.6rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 2px solid var(--primary-600);
 }
 
-.cover-crop-active {
-  background: var(--bg-surface);
-  border-left: 4px solid #10b981;
+.month-name-tag {
+  font-size: 1.05rem;
+  color: var(--primary-700);
+  letter-spacing: 0.02em;
 }
 
-.cover-crop-inactive {
-  background: var(--bg-surface);
-  border-left: 4px solid var(--text-muted);
+[data-theme="dark"] .month-name-tag {
+  color: var(--primary-500);
 }
 
-.cover-crop-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.cover-crop-title {
-  font-size: 1rem;
-  font-weight: 800;
-  color: var(--text-main);
-}
-
-.cover-crop-badge {
-  background: #10b981;
-  color: #ffffff;
-  font-size: 0.72rem;
-  font-weight: 700;
-  padding: 0.15rem 0.5rem;
-  border-radius: 4px;
-}
-
-.cover-crop-desc {
-  font-size: 0.85rem;
-  color: var(--text-main);
-}
-
-.cover-crop-details {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  color: var(--text-muted);
-  margin-top: 0.2rem;
-}
-
-/* ==================== WORKFLOW DES TRAVAUX DU SOL ==================== */
-.workflow-steps-list {
+.monthly-tasks-container {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.6rem;
 }
 
 .workflow-task-item {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: 1rem 1.25rem;
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
   align-items: flex-start;
-  box-shadow: var(--shadow-sm);
   transition: var(--transition);
 }
 
@@ -674,30 +844,31 @@ body {
   border-color: var(--primary-600);
 }
 
-.task-step-number {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--primary-700);
-  color: #ffffff;
-  font-weight: 800;
-  font-size: 0.85rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+.task-is-done {
+  opacity: 0.6;
+  background: var(--bg-surface);
 }
 
-[data-theme="dark"] .task-step-number {
-  background: var(--primary-600);
-  color: #0f172a;
+.text-strikethrough {
+  text-decoration: line-through;
+}
+
+.task-checkbox-wrap {
+  margin-top: 0.25rem;
+}
+
+.task-checkbox-wrap input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--primary-600);
 }
 
 .task-details-col {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.25rem;
 }
 
 .task-phase-badge {
@@ -713,8 +884,8 @@ body {
 }
 
 .task-main-title {
-  font-size: 1rem;
-  font-weight: 800;
+  font-size: 0.95rem;
+  font-weight: 700;
   color: var(--text-main);
 }
 
@@ -725,9 +896,9 @@ body {
 }
 
 .spec-pill {
-  background: var(--bg-surface-subtle);
-  border: 1px solid var(--border-subtle);
-  padding: 0.2rem 0.5rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 0.15rem 0.45rem;
   border-radius: 4px;
   font-size: 0.75rem;
 }
@@ -743,12 +914,12 @@ body {
 }
 
 .task-tool-recommended {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--text-main);
-  background: var(--bg-surface-subtle);
+  background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
-  padding: 0.35rem 0.65rem;
+  padding: 0.3rem 0.6rem;
   margin-top: 0.15rem;
   display: flex;
   align-items: center;
@@ -765,23 +936,39 @@ body {
   color: var(--primary-500);
 }
 
-.dlc-badge-pill {
-  display: inline-block;
-  background: rgba(139, 92, 246, 0.15);
-  color: #a855f7;
-  border: 1px solid rgba(168, 85, 247, 0.3);
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 0.1rem 0.4rem;
-  border-radius: 4px;
-  text-transform: uppercase;
-}
-
 .task-agronomic-note {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
   line-height: 1.4;
-  margin-top: 0.1rem;
+}
+
+/* ==================== VUE CALENDRIER GLOBAL DE L'EXPLOITATION ==================== */
+.global-calendar-row {
+  display: grid;
+  grid-template-columns: 220px 1fr 240px;
+  gap: 1rem;
+  align-items: center;
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-subtle);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.4rem;
+}
+
+@media (max-width: 768px) {
+  .global-calendar-row {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+}
+
+.global-field-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
 }
 
 /* ==================== IMPRESSION ==================== */
@@ -792,7 +979,7 @@ body {
     font-size: 10pt;
   }
 
-  .app-header, .header-actions, .soil-presets-wrap, button {
+  .app-header, .header-actions, .soil-presets-wrap, .parcel-switcher-card, button {
     display: none !important;
   }
 
@@ -801,7 +988,7 @@ body {
     padding: 0 !important;
   }
 
-  .card, .workflow-task-item {
+  .card, .monthly-timeline-block {
     page-break-inside: avoid;
     border: 1px solid #cccccc !important;
     box-shadow: none !important;
