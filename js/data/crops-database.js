@@ -1,51 +1,57 @@
 /**
- * Base de données des cultures FARMING SIMULATOR 25 (FS25)
+ * Base de données complète des cultures Farming Simulator 25 (FS25)
  * Inclut :
- * - Les cultures de base et de toutes les extensions officielles (Highlands Fishing, Premium, Platinum, etc.)
- * - Les cultures spécifiques de la carte LE MECHET (Luzerne, Trèfle, Seigle, Triticale, Lin, Chanvre, Moutarde)
- * - Les règles du mod CROP ROTATION
- * - Les exigences en azote et sol de PRECISION FARMING
- * - Les contraintes de la politique de rotation du mod PAPERASSERIE (RedTape)
+ * - Les cultures officielles du jeu de base et de toutes les extensions
+ * - Les cultures et variantes de la carte Le Mechet et des modules agronomiques :
+ *   épeautre, blé d'hiver, blé de printemps, orge d'hiver, orge de printemps, seigle grain,
+ *   seigle vert, maïs grain, maïs pour ensilage, herbe semée, prairie permanente, avoine d'hiver,
+ *   avoine de printemps, féverole, méteil, sarrasin, luzerne, trèfle, lin, chanvre, moutarde, oignons, etc.
+ * - Les règles de rotation des cultures
+ * - Les exigences en azote et sol de l'agriculture de précision
+ * - Les contraintes de la politique de rotation du mod Paperasserie
  * 
- * Rédigé exclusivement en français sans équivalents en anglais.
+ * Rédigé exclusivement en français selon les règles typographiques (majuscule uniquement en début de phrase ou nom propre).
  */
 const CROPS_DATABASE = [
-  // ==================== 1. CÉRÉALES & GRAINS ====================
+  // ==================== 1. CÉRÉALES D'AUTOMNE ET RUSTIQUES ====================
   {
     id: "fs25-ble",
-    name: "Blé",
+    name: "Blé d'hiver",
     family: "cereales",
     familyLabel: "Céréales à paille",
     dlc: "Jeu de base",
     rotationCategory: "cereals",
-    harvestPeriod: "Juillet - Août",
-    sowPeriod: "Septembre - Octobre",
+    harvestPeriod: "Juillet - août",
+    sowPeriod: "Septembre - octobre",
     hasStraw: true,
     needsPlowing: false,
     directDrillCompatible: true,
     pfNitrogenTarget: "160-200 kg N/ha",
     idealNextCrops: [
-      { cropId: "fs25-colza", bonus: "+15% (Rotation recommandée Céréale vers Colza)" },
-      { cropId: "fs25-tournesol", bonus: "+12% (Excellente rotation)" },
-      { cropId: "fs25-pois-haricots", bonus: "+15% (Céréale vers Légumineuse)" },
-      { cropId: "fs25-soja", bonus: "+15% (Céréale vers Légumineuse)" },
-      { cropId: "fs25-luzerne", bonus: "+15% (Céréale vers Luzerne)" },
-      { cropId: "fs25-mais-grain", bonus: "+10% (Bonne rotation)" }
+      { cropId: "fs25-colza", bonus: "+15% (rotation recommandée céréale vers colza d'hiver)" },
+      { cropId: "fs25-tournesol", bonus: "+12% (excellente rotation)" },
+      { cropId: "fs25-feverole", bonus: "+18% (céréale vers légumineuse fixatrice)" },
+      { cropId: "fs25-pois-haricots", bonus: "+15% (céréale vers légumineuse)" },
+      { cropId: "fs25-soja", bonus: "+15% (céréale vers légumineuse)" },
+      { cropId: "fs25-luzerne", bonus: "+15% (céréale vers luzerne)" },
+      { cropId: "fs25-mais-grain", bonus: "+10% (bonne rotation)" }
     ],
     badNextCrops: [
-      { cropId: "fs25-ble", malus: "-15% (Pénalité monoculture Blé sur Blé)" },
-      { cropId: "fs25-orge", malus: "-10% (Même famille Céréales consécutives)" },
-      { cropId: "fs25-avoine", malus: "-10% (Même famille Céréales)" },
-      { cropId: "fs25-seigle", malus: "-10% (Même famille Céréales)" },
-      { cropId: "fs25-triticale", malus: "-10% (Même famille Céréales)" }
+      { cropId: "fs25-ble", malus: "-15% (pénalité de monoculture blé sur blé)" },
+      { cropId: "fs25-ble-printemps", malus: "-15% (même espèce consécutive)" },
+      { cropId: "fs25-orge", malus: "-10% (même famille de céréales consécutives)" },
+      { cropId: "fs25-orge-printemps", malus: "-10% (même famille de céréales)" },
+      { cropId: "fs25-epeautre", malus: "-12% (céréales à paille proches)" },
+      { cropId: "fs25-seigle", malus: "-10% (même famille de céréales)" },
+      { cropId: "fs25-triticale", malus: "-10% (même famille de céréales)" }
     ],
     residuesType: "Andains de paille et chaumes",
     defaultSteps: [
       {
         order: 1,
-        phase: "1. Paille et Balles",
+        phase: "1. Paille et balles",
         month: "Août",
-        title: "Ramassage de la paille (Presse à balles ou autochargeuse)",
+        title: "Ramassage de la paille (presse à balles ou autochargeuse)",
         recommendedToolIds: ["fs25-presse-balles", "fs25-goweil-presse-stationnaire", "fs25-autochargeuse"],
         speed: "15-20 km/h",
         notes: "Pressage des andains pour litière d'élevage ou valorisation commerciale.",
@@ -58,28 +64,28 @@ const CROPS_DATABASE = [
         title: "Broyage des chaumes",
         recommendedToolIds: ["fs25-broyeur"],
         speed: "12-15 km/h",
-        notes: "Passage du broyeur pour valider l'état 'Chaumes broyées'.",
+        notes: "Passage du broyeur pour valider l'état 'chaumes broyées'.",
         fs25YieldImpact: "+2.5% de rendement"
       },
       {
         order: 3,
-        phase: "3. Chaux (Precision Farming)",
+        phase: "3. Chaux",
         month: "Août",
         title: "Chaux à dosage variable automatique",
         recommendedToolIds: ["fs25-epandeur-chaux"],
         speed: "18-20 km/h",
         notes: "Épandage modulé selon la carte de pH et le type de sol.",
-        fs25YieldImpact: "+15% et score pH 100/100"
+        fs25YieldImpact: "+15% et score de pH optimal (100/100)"
       },
       {
         order: 4,
-        phase: "4. Semis direct (Score PF 100/100)",
+        phase: "4. Semis direct",
         month: "Septembre",
         title: "Semis direct sans labour avec fertilisation modulée",
         recommendedToolIds: ["fs25-semoir-direct", "fs25-pumps-hoses-ombilical"],
         speed: "15-18 km/h",
         notes: "Le semis direct sans labour octroie la note maximale de 100/100 au score environnemental de travail du sol.",
-        fs25YieldImpact: "+22.5% (Engrais 1) et Score Sol PF 100/100"
+        fs25YieldImpact: "+22.5% (premier apport) et note maximale de sol"
       },
       {
         order: 5,
@@ -88,43 +94,130 @@ const CROPS_DATABASE = [
         title: "Passage du rouleau compresseur de sol",
         recommendedToolIds: ["fs25-rouleau-sol"],
         speed: "15 km/h",
-        notes: "Enfonce les petites pierres et confère l'état 'Roulé'.",
+        notes: "Enfonce les petites pierres et confère l'état 'roulé'.",
         fs25YieldImpact: "+2.5% de rendement"
       },
       {
         order: 6,
-        phase: "6. Désherbage et Azote (PF)",
+        phase: "6. Désherbage et azote",
         month: "Mars",
         title: "Désherbage ciblé par caméras ou herse étrille mécanique",
         recommendedToolIds: ["fs25-pf-spot-spraying", "fs25-sarcleuse-herse-etrille"],
         speed: "15 km/h",
         notes: "Pulvérisation ciblée par caméras : score environnemental de désherbage maximal.",
-        fs25YieldImpact: "Score Désherbage PF 100/100"
+        fs25YieldImpact: "Score de désherbage maximal (100/100)"
+      }
+    ]
+  },
+  {
+    id: "fs25-ble-printemps",
+    name: "Blé de printemps",
+    family: "cereales",
+    familyLabel: "Céréales à paille",
+    dlc: "Carte Le Mechet et mods",
+    rotationCategory: "cereals",
+    harvestPeriod: "Août - septembre",
+    sowPeriod: "Mars - avril",
+    hasStraw: true,
+    needsPlowing: false,
+    directDrillCompatible: true,
+    pfNitrogenTarget: "140-170 kg N/ha",
+    idealNextCrops: [
+      { cropId: "fs25-colza", bonus: "+15% (blé de printemps vers colza d'hiver direct)" },
+      { cropId: "fs25-feverole", bonus: "+18% (vers féverole d'hiver ou de printemps)" },
+      { cropId: "fs25-soja", bonus: "+15% (vers légumineuse)" }
+    ],
+    badNextCrops: [
+      { cropId: "fs25-ble", malus: "-15% (monoculture de blé)" },
+      { cropId: "fs25-ble-printemps", malus: "-15% (monoculture de blé de printemps)" },
+      { cropId: "fs25-orge-printemps", malus: "-10% (céréales de printemps successives)" }
+    ],
+    residuesType: "Andains de paille et chaumes",
+    defaultSteps: [
+      {
+        order: 1,
+        phase: "1. Paille",
+        month: "Septembre",
+        title: "Pressage de paille de blé de printemps",
+        recommendedToolIds: ["fs25-presse-balles"],
+        speed: "15-20 km/h",
+        notes: "Pressage de la paille.",
+        fs25YieldImpact: "Revenu paille"
+      }
+    ]
+  },
+  {
+    id: "fs25-epeautre",
+    name: "Épeautre",
+    family: "cereales",
+    familyLabel: "Céréales rustiques",
+    dlc: "Carte Le Mechet et mods",
+    rotationCategory: "cereals",
+    harvestPeriod: "Juillet - août",
+    sowPeriod: "Septembre - octobre",
+    hasStraw: true,
+    needsPlowing: false,
+    directDrillCompatible: true,
+    pfNitrogenTarget: "120-150 kg N/ha",
+    idealNextCrops: [
+      { cropId: "fs25-colza", bonus: "+18% (rotation optimale épeautre vers colza)" },
+      { cropId: "fs25-pois-haricots", bonus: "+15% (épeautre vers légumineuse)" },
+      { cropId: "fs25-soja", bonus: "+15% (épeautre vers soja)" },
+      { cropId: "fs25-tournesol", bonus: "+12% (très bonne rotation)" }
+    ],
+    badNextCrops: [
+      { cropId: "fs25-epeautre", malus: "-20% (monoculture épeautre sur épeautre)" },
+      { cropId: "fs25-ble", malus: "-12% (céréales proches consécutives)" },
+      { cropId: "fs25-triticale", malus: "-10% (même famille)" }
+    ],
+    residuesType: "Paille très abondante et robuste",
+    defaultSteps: [
+      {
+        order: 1,
+        phase: "1. Paille et chaumes",
+        month: "Août",
+        title: "Pressage de la paille d'épeautre et broyage des chaumes",
+        recommendedToolIds: ["fs25-presse-balles", "fs25-broyeur"],
+        speed: "15 km/h",
+        notes: "L'épeautre produit un volume de paille très important.",
+        fs25YieldImpact: "+2.5%"
+      },
+      {
+        order: 2,
+        phase: "2. Chaux et semis",
+        month: "Septembre",
+        title: "Chaux variable et semis direct",
+        recommendedToolIds: ["fs25-epandeur-chaux", "fs25-semoir-direct"],
+        speed: "15-18 km/h",
+        notes: "Très rustique, valorise parfaitement les sols limoneux ou acides.",
+        fs25YieldImpact: "+15% (chaux) + 22.5% (engrais initial)"
       }
     ]
   },
   {
     id: "fs25-orge",
-    name: "Orge",
+    name: "Orge d'hiver (escourgeon)",
     family: "cereales",
     familyLabel: "Céréales à paille",
     dlc: "Jeu de base",
     rotationCategory: "cereals",
-    harvestPeriod: "Juin - Juillet",
-    sowPeriod: "Septembre - Octobre",
+    harvestPeriod: "Juin - juillet",
+    sowPeriod: "Septembre - octobre",
     hasStraw: true,
     needsPlowing: false,
     directDrillCompatible: true,
     pfNitrogenTarget: "140-180 kg N/ha",
     idealNextCrops: [
-      { cropId: "fs25-colza", bonus: "+15% (Précédent idéal pour Colza d'hiver semé en août)" },
-      { cropId: "fs25-soja", bonus: "+15% (Excellente rotation)" },
-      { cropId: "fs25-pois-haricots", bonus: "+15% (Céréale vers Légumineuse)" },
-      { cropId: "fs25-luzerne", bonus: "+15% (Orge vers Luzerne)" }
+      { cropId: "fs25-colza", bonus: "+18% (précédent royal pour colza d'hiver semé en août)" },
+      { cropId: "fs25-soja", bonus: "+15% (excellente rotation)" },
+      { cropId: "fs25-moutarde", bonus: "+15% (permet un couvert d'été immédiat)" },
+      { cropId: "fs25-pois-haricots", bonus: "+15% (céréale vers légumineuse)" },
+      { cropId: "fs25-luzerne", bonus: "+15% (orge vers luzerne)" }
     ],
     badNextCrops: [
-      { cropId: "fs25-orge", malus: "-15% (Monoculture Orge sur Orge)" },
-      { cropId: "fs25-ble", malus: "-10% (Céréales successives)" }
+      { cropId: "fs25-orge", malus: "-15% (monoculture orge sur orge)" },
+      { cropId: "fs25-orge-printemps", malus: "-15% (orge d'hiver vers orge de printemps)" },
+      { cropId: "fs25-ble", malus: "-10% (céréales successives)" }
     ],
     residuesType: "Volume élevé de paille",
     defaultSteps: [
@@ -132,7 +225,7 @@ const CROPS_DATABASE = [
         order: 1,
         phase: "1. Paille",
         month: "Juillet",
-        title: "Pressage de la paille",
+        title: "Pressage de la paille d'orge",
         recommendedToolIds: ["fs25-presse-balles", "fs25-goweil-presse-stationnaire"],
         speed: "15-20 km/h",
         notes: "Pressage de la paille d'orge.",
@@ -147,74 +240,117 @@ const CROPS_DATABASE = [
         speed: "15 km/h",
         notes: "Bonus de broyage.",
         fs25YieldImpact: "+2.5%"
-      },
+      }
+    ]
+  },
+  {
+    id: "fs25-orge-printemps",
+    name: "Orge de printemps (orge brassicole)",
+    family: "cereales",
+    familyLabel: "Céréales à paille",
+    dlc: "Carte Le Mechet et mods",
+    rotationCategory: "cereals",
+    harvestPeriod: "Juillet - août",
+    sowPeriod: "Février - mars",
+    hasStraw: true,
+    needsPlowing: false,
+    directDrillCompatible: true,
+    pfNitrogenTarget: "110-140 kg N/ha",
+    idealNextCrops: [
+      { cropId: "fs25-colza", bonus: "+15% (orge brassicole vers colza)" },
+      { cropId: "fs25-soja", bonus: "+15% (vers légumineuse)" }
+    ],
+    badNextCrops: [
+      { cropId: "fs25-orge-printemps", malus: "-15% (monoculture orge de printemps)" },
+      { cropId: "fs25-orge", malus: "-15% (même espèce consécutive)" }
+    ],
+    residuesType: "Paille fine pour alimentation ou litière",
+    defaultSteps: [
       {
-        order: 3,
-        phase: "3. Chaux et Semis direct PF",
+        order: 1,
+        phase: "1. Paille et chaumes",
         month: "Août",
-        title: "Chaux variable et semis direct avec engrais",
-        recommendedToolIds: ["fs25-epandeur-chaux", "fs25-semoir-direct"],
-        speed: "15-18 km/h",
-        notes: "Semis direct de la culture suivante.",
-        fs25YieldImpact: "+15% (Chaux) + 22.5% (Engrais) et Score PF 100/100"
-      },
-      {
-        order: 4,
-        phase: "4. Rouleau",
-        month: "Août",
-        title: "Roulage post-semis",
-        recommendedToolIds: ["fs25-rouleau-sol"],
+        title: "Pressage paille et broyage des chaumes",
+        recommendedToolIds: ["fs25-presse-balles", "fs25-broyeur"],
         speed: "15 km/h",
-        notes: "Passage du rouleau.",
+        notes: "Paille claire de printemps.",
         fs25YieldImpact: "+2.5%"
       }
     ]
   },
   {
     id: "fs25-seigle",
-    name: "Seigle",
+    name: "Seigle (grain)",
     family: "cereales",
     familyLabel: "Céréales rustiques",
-    dlc: "Le Mechet & Mods",
+    dlc: "Carte Le Mechet et mods",
     rotationCategory: "cereals",
-    harvestPeriod: "Juillet - Août",
-    sowPeriod: "Septembre - Octobre",
+    harvestPeriod: "Juillet - août",
+    sowPeriod: "Septembre - octobre",
     hasStraw: true,
     needsPlowing: false,
     directDrillCompatible: true,
     pfNitrogenTarget: "110-140 kg N/ha",
     idealNextCrops: [
-      { cropId: "fs25-colza", bonus: "+15% (Seigle vers Colza d'hiver)" },
-      { cropId: "fs25-trefle", bonus: "+18% (Seigle vers Trèfle)" },
-      { cropId: "fs25-pois-haricots", bonus: "+15% (Seigle vers Légumineuse)" },
-      { cropId: "fs25-pomme-de-terre", bonus: "+12% (Excellente valorisation sur sols légers)" }
+      { cropId: "fs25-colza", bonus: "+15% (seigle vers colza d'hiver)" },
+      { cropId: "fs25-trefle", bonus: "+18% (seigle vers trèfle)" },
+      { cropId: "fs25-pois-haricots", bonus: "+15% (seigle vers légumineuse)" },
+      { cropId: "fs25-pomme-de-terre", bonus: "+12% (excellente valorisation sur sols légers)" }
     ],
     badNextCrops: [
-      { cropId: "fs25-seigle", malus: "-15% (Monoculture Seigle)" },
-      { cropId: "fs25-ble", malus: "-10% (Céréales successives)" },
-      { cropId: "fs25-triticale", malus: "-10% (Même famille)" }
+      { cropId: "fs25-seigle", malus: "-15% (monoculture de seigle)" },
+      { cropId: "fs25-seigle-vert", malus: "-15% (même espèce)" },
+      { cropId: "fs25-ble", malus: "-10% (céréales successives)" },
+      { cropId: "fs25-triticale", malus: "-10% (même famille)" }
     ],
     residuesType: "Paille abondante très fibreuse",
     defaultSteps: [
       {
         order: 1,
-        phase: "1. Paille & Chaumes",
+        phase: "1. Paille et chaumes",
         month: "Août",
         title: "Pressage de paille et broyage des chaumes de seigle",
         recommendedToolIds: ["fs25-presse-balles", "fs25-broyeur"],
         speed: "15 km/h",
         notes: "Le seigle produit une excellente paille rustique.",
         fs25YieldImpact: "+2.5%"
-      },
+      }
+    ]
+  },
+  {
+    id: "fs25-seigle-vert",
+    name: "Seigle vert (fourrager / ensilage plante entière)",
+    family: "cereales",
+    familyLabel: "Céréales fourragères et dérobées",
+    dlc: "Carte Le Mechet et mods",
+    rotationCategory: "cereals",
+    harvestPeriod: "Mai (plante entière immature)",
+    sowPeriod: "Septembre - octobre",
+    hasStraw: false,
+    needsPlowing: false,
+    directDrillCompatible: true,
+    pfNitrogenTarget: "90-120 kg N/ha",
+    idealNextCrops: [
+      { cropId: "fs25-mais-ensilage", bonus: "+20% (dérobée optimale : seigle vert récolté en mai vers maïs ensilage semé immédiatement)" },
+      { cropId: "fs25-mais-grain", bonus: "+18% (seigle vert vers maïs)" },
+      { cropId: "fs25-tournesol", bonus: "+18% (seigle vert vers tournesol dérobé)" },
+      { cropId: "fs25-soja", bonus: "+15% (seigle vert vers soja)" }
+    ],
+    badNextCrops: [
+      { cropId: "fs25-seigle-vert", malus: "-20% (monoculture de seigle vert)" },
+      { cropId: "fs25-seigle", malus: "-15% (même espèce consécutive)" }
+    ],
+    residuesType: "Ensilage végétal à haute digestibilité",
+    defaultSteps: [
       {
-        order: 2,
-        phase: "2. Chaux & Semis",
-        month: "Septembre",
-        title: "Chaux variable et semis direct",
-        recommendedToolIds: ["fs25-epandeur-chaux", "fs25-semoir-direct"],
-        speed: "15-18 km/h",
-        notes: "Très rustique, adapté aux sols sableux ou acides du Morvan.",
-        fs25YieldImpact: "+15% (Chaux) + 22.5% (Engrais 1)"
+        order: 1,
+        phase: "1. Ensilage dérobée",
+        month: "Mai",
+        title: "Récolte ensileuse plante entière et semis direct immédiat d'été",
+        recommendedToolIds: ["fs25-semoir-direct", "fs25-semoir-monograine"],
+        speed: "15 km/h",
+        notes: "Libère la parcelle début mai pour une culture d'été à haut rendement.",
+        fs25YieldImpact: "Double récolte sur l'année"
       }
     ]
   },
@@ -223,22 +359,22 @@ const CROPS_DATABASE = [
     name: "Triticale",
     family: "cereales",
     familyLabel: "Céréales rustiques",
-    dlc: "Le Mechet & Mods",
+    dlc: "Carte Le Mechet et mods",
     rotationCategory: "cereals",
-    harvestPeriod: "Juillet - Août",
-    sowPeriod: "Septembre - Octobre",
+    harvestPeriod: "Juillet - août",
+    sowPeriod: "Septembre - octobre",
     hasStraw: true,
     needsPlowing: false,
     directDrillCompatible: true,
     pfNitrogenTarget: "130-160 kg N/ha",
     idealNextCrops: [
-      { cropId: "fs25-colza", bonus: "+15% (Triticale vers Colza)" },
-      { cropId: "fs25-soja", bonus: "+15% (Triticale vers Soja)" },
-      { cropId: "fs25-luzerne", bonus: "+15% (Triticale vers Luzerne)" }
+      { cropId: "fs25-colza", bonus: "+15% (triticale vers colza)" },
+      { cropId: "fs25-soja", bonus: "+15% (triticale vers soja)" },
+      { cropId: "fs25-luzerne", bonus: "+15% (triticale vers luzerne)" }
     ],
     badNextCrops: [
-      { cropId: "fs25-triticale", malus: "-15% (Monoculture Triticale)" },
-      { cropId: "fs25-ble", malus: "-10% (Céréales successives)" }
+      { cropId: "fs25-triticale", malus: "-15% (monoculture de triticale)" },
+      { cropId: "fs25-ble", malus: "-10% (céréales successives)" }
     ],
     residuesType: "Très gros volume de paille",
     defaultSteps: [
@@ -256,32 +392,64 @@ const CROPS_DATABASE = [
   },
   {
     id: "fs25-avoine",
-    name: "Avoine",
+    name: "Avoine de printemps",
     family: "cereales",
     familyLabel: "Céréales à paille",
     dlc: "Jeu de base",
     rotationCategory: "cereals",
-    harvestPeriod: "Juillet - Août",
-    sowPeriod: "Mars - Avril",
+    harvestPeriod: "Juillet - août",
+    sowPeriod: "Mars - avril",
     hasStraw: true,
     needsPlowing: false,
     directDrillCompatible: true,
     pfNitrogenTarget: "120-150 kg N/ha",
     idealNextCrops: [
-      { cropId: "fs25-colza", bonus: "+15% (Excellente rotation)" },
-      { cropId: "fs25-soja", bonus: "+15% (Rotation Céréale vers Soja)" }
+      { cropId: "fs25-colza", bonus: "+15% (excellente rotation)" },
+      { cropId: "fs25-soja", bonus: "+15% (rotation céréale vers soja)" }
     ],
-    badNextCrops: [{ cropId: "fs25-avoine", malus: "-15% (Monoculture Avoine)" }],
+    badNextCrops: [{ cropId: "fs25-avoine", malus: "-15% (monoculture d'avoine)" }],
     residuesType: "Paille pour chevaux",
     defaultSteps: [
       {
         order: 1,
-        phase: "1. Paille et Chaumes",
+        phase: "1. Paille et chaumes",
         month: "Août",
         title: "Pressage de paille et broyage des chaumes",
         recommendedToolIds: ["fs25-presse-balles", "fs25-broyeur"],
         speed: "15 km/h",
         notes: "Récupération de la paille et broyage des chaumes.",
+        fs25YieldImpact: "+2.5%"
+      }
+    ]
+  },
+  {
+    id: "fs25-avoine-hiver",
+    name: "Avoine d'hiver",
+    family: "cereales",
+    familyLabel: "Céréales à paille",
+    dlc: "Carte Le Mechet et mods",
+    rotationCategory: "cereals",
+    harvestPeriod: "Juillet",
+    sowPeriod: "Octobre",
+    hasStraw: true,
+    needsPlowing: false,
+    directDrillCompatible: true,
+    pfNitrogenTarget: "120-150 kg N/ha",
+    idealNextCrops: [
+      { cropId: "fs25-colza", bonus: "+15% (vers colza)" },
+      { cropId: "fs25-soja", bonus: "+15% (vers soja)" }
+    ],
+    badNextCrops: [{ cropId: "fs25-avoine-hiver", malus: "-15% (monoculture)" }],
+    residuesType: "Paille d'hiver",
+    defaultSteps: [
+      {
+        order: 1,
+        phase: "1. Paille",
+        month: "Juillet",
+        title: "Pressage paille d'avoine d'hiver",
+        recommendedToolIds: ["fs25-presse-balles"],
+        speed: "15 km/h",
+        notes: "Pressage de paille.",
         fs25YieldImpact: "+2.5%"
       }
     ]
@@ -293,18 +461,18 @@ const CROPS_DATABASE = [
     familyLabel: "Céréales et grains",
     dlc: "Jeu de base",
     rotationCategory: "cereals",
-    harvestPeriod: "Août - Septembre",
-    sowPeriod: "Avril - Mai",
+    harvestPeriod: "Août - septembre",
+    sowPeriod: "Avril - mai",
     hasStraw: false,
     needsPlowing: false,
     directDrillCompatible: true,
     pfNitrogenTarget: "110-140 kg N/ha",
     idealNextCrops: [
-      { cropId: "fs25-soja", bonus: "+15% (Sorgho vers Soja)" },
-      { cropId: "fs25-ble", bonus: "+12% (Sorgho vers Blé d'hiver)" },
-      { cropId: "fs25-pois-haricots", bonus: "+15% (Sorgho vers Pois ou Haricots)" }
+      { cropId: "fs25-soja", bonus: "+15% (sorgho vers soja)" },
+      { cropId: "fs25-ble", bonus: "+12% (sorgho vers blé d'hiver)" },
+      { cropId: "fs25-pois-haricots", bonus: "+15% (sorgho vers pois ou haricots)" }
     ],
-    badNextCrops: [{ cropId: "fs25-sorgho", malus: "-15% (Monoculture Sorgho)" }],
+    badNextCrops: [{ cropId: "fs25-sorgho", malus: "-15% (monoculture de sorgho)" }],
     residuesType: "Chaumes courtes de sorgho",
     defaultSteps: [
       {
@@ -319,35 +487,69 @@ const CROPS_DATABASE = [
       }
     ]
   },
+  {
+    id: "fs25-meteil",
+    name: "Méteil fourrager (ensilage plante entière)",
+    family: "cereales",
+    familyLabel: "Fourrages et ensilages",
+    dlc: "Carte Le Mechet et mods",
+    rotationCategory: "cereals",
+    harvestPeriod: "Juin (ensilage plante entière)",
+    sowPeriod: "Septembre - octobre",
+    hasStraw: false,
+    needsPlowing: false,
+    directDrillCompatible: true,
+    pfNitrogenTarget: "80-110 kg N/ha",
+    idealNextCrops: [
+      { cropId: "fs25-mais-ensilage", bonus: "+20% (méteil ensilé en juin vers maïs dérobé)" },
+      { cropId: "fs25-tournesol", bonus: "+18% (vers tournesol dérobé)" },
+      { cropId: "fs25-soja", bonus: "+15% (vers soja)" }
+    ],
+    badNextCrops: [{ cropId: "fs25-meteil", malus: "-15% (monoculture de méteil)" }],
+    residuesType: "Ensilage riche en protéines",
+    defaultSteps: [
+      {
+        order: 1,
+        phase: "1. Ensilage",
+        month: "Juin",
+        title: "Ensilage plante entière du méteil",
+        recommendedToolIds: ["fs25-semoir-direct"],
+        speed: "15 km/h",
+        notes: "Mélange très équilibré pour bovins.",
+        fs25YieldImpact: "Excellente valeur nutritive"
+      }
+    ]
+  },
 
-  // ==================== 2. LÉGUMINEUSES & FOURRAGES ====================
+  // ==================== 2. LÉGUMINEUSES ET FOURRAGES ====================
   {
     id: "fs25-luzerne",
     name: "Luzerne",
     family: "fourrages",
     familyLabel: "Légumineuses pérennes",
-    dlc: "Le Mechet & Mods",
+    dlc: "Carte Le Mechet et mods",
     rotationCategory: "legumes",
-    harvestPeriod: "Mai à Octobre (3-4 coupes par an)",
-    sowPeriod: "Mars - Avril ou Août",
+    harvestPeriod: "Mai à octobre (3-4 coupes par an)",
+    sowPeriod: "Mars - avril ou août",
     hasStraw: false,
     needsPlowing: false,
     directDrillCompatible: true,
-    pfNitrogenTarget: "0 kg N/ha (Fixatrice d'azote - Aucun engrais chimique nécessaire)",
+    pfNitrogenTarget: "0 kg N/ha (fixatrice d'azote - aucun engrais chimique nécessaire)",
     idealNextCrops: [
-      { cropId: "fs25-ble", bonus: "+20% (Précédent royal : Retournement de Luzerne vers Blé d'hiver)" },
-      { cropId: "fs25-mais-grain", bonus: "+20% (Retournement de Luzerne vers Maïs)" },
-      { cropId: "fs25-colza", bonus: "+18% (Excellente fertilisation résiduelle)" }
+      { cropId: "fs25-ble", bonus: "+20% (précédent royal : retournement de luzerne vers blé d'hiver)" },
+      { cropId: "fs25-mais-grain", bonus: "+20% (retournement de luzerne vers maïs)" },
+      { cropId: "fs25-mais-ensilage", bonus: "+20% (retournement vers maïs ensilage)" },
+      { cropId: "fs25-colza", bonus: "+18% (excellente fertilisation résiduelle)" }
     ],
     badNextCrops: [
-      { cropId: "fs25-luzerne", malus: "-20% (Monoculture continue après destruction)" },
-      { cropId: "fs25-trefle", malus: "-12% (Légumineuses fourragères consécutives)" }
+      { cropId: "fs25-luzerne", malus: "-20% (monoculture continue après destruction)" },
+      { cropId: "fs25-trefle", malus: "-12% (légumineuses fourragères consécutives)" }
     ],
     residuesType: "Foin ou ensilage de haute valeur protéique et reliquat azoté massif",
     defaultSteps: [
       {
         order: 1,
-        phase: "1. Fauche et Entretien",
+        phase: "1. Fauche et entretien",
         month: "Octobre",
         title: "Dernière fauche d'automne et rouleau à prairie",
         recommendedToolIds: ["fs25-rouleau-herbe"],
@@ -362,56 +564,97 @@ const CROPS_DATABASE = [
     name: "Trèfle",
     family: "fourrages",
     familyLabel: "Légumineuses et engrais verts",
-    dlc: "Le Mechet & Mods",
+    dlc: "Carte Le Mechet et mods",
     rotationCategory: "legumes",
-    harvestPeriod: "Mai à Septembre (2-3 coupes par an)",
-    sowPeriod: "Mars - Avril",
+    harvestPeriod: "Mai à septembre (2-3 coupes par an)",
+    sowPeriod: "Mars - avril",
     hasStraw: false,
     needsPlowing: false,
     directDrillCompatible: true,
-    pfNitrogenTarget: "0 kg N/ha (Fixation symbiotique d'azote)",
+    pfNitrogenTarget: "0 kg N/ha (fixation symbiotique d'azote)",
     idealNextCrops: [
-      { cropId: "fs25-ble", bonus: "+20% (Trèfle vers Blé d'hiver)" },
-      { cropId: "fs25-mais-grain", bonus: "+18% (Trèfle vers Maïs)" },
-      { cropId: "fs25-seigle", bonus: "+18% (Trèfle vers Seigle)" }
+      { cropId: "fs25-ble", bonus: "+20% (trèfle vers blé d'hiver)" },
+      { cropId: "fs25-mais-grain", bonus: "+18% (trèfle vers maïs)" },
+      { cropId: "fs25-mais-ensilage", bonus: "+18% (trèfle vers maïs ensilage)" },
+      { cropId: "fs25-seigle", bonus: "+18% (trèfle vers seigle)" }
     ],
-    badNextCrops: [{ cropId: "fs25-trefle", malus: "-20% (Monoculture Trèfle)" }],
+    badNextCrops: [{ cropId: "fs25-trefle", malus: "-20% (monoculture de trèfle)" }],
     residuesType: "Masse organique azotée très riche",
     defaultSteps: [
       {
         order: 1,
-        phase: "1. Broyage ou Ensilage",
+        phase: "1. Broyage ou ensilage",
         month: "Septembre",
         title: "Broyage ou ensilage du trèfle avant céréale",
         recommendedToolIds: ["fs25-broyeur", "fs25-semoir-direct"],
         speed: "15 km/h",
         notes: "Apporte un reliquat d'azote naturel colossal pour la culture suivante.",
-        fs25YieldImpact: "+20% (Rotation) et +50 kg N/ha gratuit"
+        fs25YieldImpact: "+20% (rotation) et +50 kg N/ha gratuit"
+      }
+    ]
+  },
+  {
+    id: "fs25-feverole",
+    name: "Féverole (protéagineux fixateur d'azote)",
+    family: "oleoprot",
+    familyLabel: "Légumineuses et protéagineux",
+    dlc: "Carte Le Mechet et mods",
+    rotationCategory: "legumes",
+    harvestPeriod: "Juillet - août",
+    sowPeriod: "Mars - avril ou octobre",
+    hasStraw: false,
+    needsPlowing: false,
+    directDrillCompatible: true,
+    pfNitrogenTarget: "0 kg N/ha (auto-suffisante en azote)",
+    idealNextCrops: [
+      { cropId: "fs25-ble", bonus: "+20% (précédent d'or : féverole vers blé d'hiver)" },
+      { cropId: "fs25-orge", bonus: "+18% (excellente valorisation de l'azote)" },
+      { cropId: "fs25-epeautre", bonus: "+18% (féverole vers épeautre)" },
+      { cropId: "fs25-colza", bonus: "+15% (vers colza)" }
+    ],
+    badNextCrops: [
+      { cropId: "fs25-feverole", malus: "-20% (monoculture de féverole)" },
+      { cropId: "fs25-pois-haricots", malus: "-12% (légumineuses consécutives)" },
+      { cropId: "fs25-soja", malus: "-12% (légumineuses consécutives)" }
+    ],
+    residuesType: "Tiges sèches riches en reliquats azotés",
+    defaultSteps: [
+      {
+        order: 1,
+        phase: "1. Chaumes",
+        month: "Août",
+        title: "Broyage des chaumes de féverole",
+        recommendedToolIds: ["fs25-broyeur"],
+        speed: "15 km/h",
+        notes: "Laisse un sol riche en azote.",
+        fs25YieldImpact: "+2.5%"
       }
     ]
   },
   {
     id: "fs25-soja",
-    name: "Soja (Fixateur d'azote)",
+    name: "Soja (fixateur d'azote)",
     family: "oleoprot",
     familyLabel: "Légumineuses et protéagineux",
     dlc: "Jeu de base",
     rotationCategory: "legumes",
-    harvestPeriod: "Septembre - Octobre",
-    sowPeriod: "Avril - Mai",
+    harvestPeriod: "Septembre - octobre",
+    sowPeriod: "Avril - mai",
     hasStraw: false,
     needsPlowing: false,
     directDrillCompatible: true,
-    pfNitrogenTarget: "0 kg N/ha (Auto-suffisant en azote)",
+    pfNitrogenTarget: "0 kg N/ha (auto-suffisant en azote)",
     idealNextCrops: [
-      { cropId: "fs25-ble", bonus: "+20% (Rotation optimale : Soja vers Blé d'hiver)" },
-      { cropId: "fs25-orge", bonus: "+18% (Excellente valorisation de l'azote résiduel)" },
-      { cropId: "fs25-colza", bonus: "+15% (Très bon précédent)" },
-      { cropId: "fs25-mais-grain", bonus: "+15% (Rotation Soja vers Maïs)" }
+      { cropId: "fs25-ble", bonus: "+20% (rotation optimale : soja vers blé d'hiver)" },
+      { cropId: "fs25-orge", bonus: "+18% (excellente valorisation de l'azote résiduel)" },
+      { cropId: "fs25-epeautre", bonus: "+18% (soja vers épeautre)" },
+      { cropId: "fs25-colza", bonus: "+15% (très bon précédent)" },
+      { cropId: "fs25-mais-grain", bonus: "+15% (rotation soja vers maïs)" }
     ],
     badNextCrops: [
-      { cropId: "fs25-soja", malus: "-20% (Pénalité monoculture Soja)" },
-      { cropId: "fs25-pois-haricots", malus: "-12% (Légumineuses consécutives)" }
+      { cropId: "fs25-soja", malus: "-20% (pénalité de monoculture soja)" },
+      { cropId: "fs25-pois-haricots", malus: "-12% (légumineuses consécutives)" },
+      { cropId: "fs25-feverole", malus: "-12% (légumineuses consécutives)" }
     ],
     residuesType: "Chaumes courtes, reliquat azoté organique élevé",
     defaultSteps: [
@@ -424,47 +667,28 @@ const CROPS_DATABASE = [
         speed: "15 km/h",
         notes: "Broyage pour valider le bonus de +2.5%.",
         fs25YieldImpact: "+2.5%"
-      },
-      {
-        order: 2,
-        phase: "2. Chaux et Semis direct Blé (PF)",
-        month: "Octobre",
-        title: "Chaux variable et semis direct de Blé d'hiver",
-        recommendedToolIds: ["fs25-epandeur-chaux", "fs25-semoir-direct"],
-        speed: "15-18 km/h",
-        notes: "Le blé d'hiver après soja bénéficie du bonus de rotation maximal (+20%) et du score PF 100/100.",
-        fs25YieldImpact: "+20% (Rotation) + 15% (Chaux) + Score Sol PF 100/100"
-      },
-      {
-        order: 3,
-        phase: "3. Finition",
-        month: "Octobre",
-        title: "Roulage de sol post-semis",
-        recommendedToolIds: ["fs25-rouleau-sol"],
-        speed: "15 km/h",
-        notes: "Passage du rouleau compresseur.",
-        fs25YieldImpact: "+2.5%"
       }
     ]
   },
   {
     id: "fs25-pois-haricots",
-    name: "Pois et Haricots verts",
+    name: "Pois et haricots verts",
     family: "nouveautes",
     familyLabel: "Nouveautés et légumineuses",
     dlc: "Jeu de base",
     rotationCategory: "legumes",
-    harvestPeriod: "Juillet - Août",
-    sowPeriod: "Mars - Avril",
+    harvestPeriod: "Juillet - août",
+    sowPeriod: "Mars - avril",
     hasStraw: false,
     needsPlowing: false,
     directDrillCompatible: true,
     pfNitrogenTarget: "0-40 kg N/ha",
     idealNextCrops: [
-      { cropId: "fs25-ble", bonus: "+20% (Précédent idéal pour le Blé d'hiver)" },
-      { cropId: "fs25-colza", bonus: "+15% (Semé directement en août)" }
+      { cropId: "fs25-ble", bonus: "+20% (précédent idéal pour le blé d'hiver)" },
+      { cropId: "fs25-epeautre", bonus: "+18% (précédent idéal épeautre)" },
+      { cropId: "fs25-colza", bonus: "+15% (semé directement en août)" }
     ],
-    badNextCrops: [{ cropId: "fs25-pois-haricots", malus: "-20% (Monoculture Pois ou Haricots)" }],
+    badNextCrops: [{ cropId: "fs25-pois-haricots", malus: "-20% (monoculture de pois ou haricots)" }],
     residuesType: "Résidus légers riches en azote",
     defaultSteps: [
       {
@@ -480,27 +704,30 @@ const CROPS_DATABASE = [
     ]
   },
 
-  // ==================== 3. CULTURES LOURDES & TUBERCULES ====================
+  // ==================== 3. CULTURES LOURDES ET TUBERCULES ====================
   {
     id: "fs25-mais-grain",
-    name: "Maïs grain et Ensilage",
+    name: "Maïs grain",
     family: "lourdes",
     familyLabel: "Cultures avec labour obligatoire",
     dlc: "Jeu de base",
     rotationCategory: "roots",
-    harvestPeriod: "Octobre - Novembre",
-    sowPeriod: "Avril - Mai",
+    harvestPeriod: "Octobre - novembre",
+    sowPeriod: "Avril - mai",
     hasStraw: false,
     needsPlowing: true,
     directDrillCompatible: false,
     pfNitrogenTarget: "200-240 kg N/ha",
     idealNextCrops: [
-      { cropId: "fs25-soja", bonus: "+15% (Rotation recommandée Maïs vers Soja)" },
-      { cropId: "fs25-ble", bonus: "+12% (Blé d'hiver tardif ou printemps)" },
-      { cropId: "fs25-tournesol", bonus: "+10% (Bonne rotation)" }
+      { cropId: "fs25-soja", bonus: "+15% (rotation recommandée maïs vers soja)" },
+      { cropId: "fs25-ble", bonus: "+12% (blé d'hiver tardif ou printemps)" },
+      { cropId: "fs25-tournesol", bonus: "+10% (bonne rotation)" }
     ],
-    badNextCrops: [{ cropId: "fs25-mais-grain", malus: "-20% (Monoculture Maïs sur Maïs)" }],
-    residuesType: "Cannes de maïs épaisses (Déclenche l'état Labour requis)",
+    badNextCrops: [
+      { cropId: "fs25-mais-grain", malus: "-20% (monoculture maïs sur maïs)" },
+      { cropId: "fs25-mais-ensilage", malus: "-15% (maïs consécutif)" }
+    ],
+    residuesType: "Cannes de maïs épaisses (déclenche l'état labour requis)",
     defaultSteps: [
       {
         order: 1,
@@ -514,13 +741,49 @@ const CROPS_DATABASE = [
       },
       {
         order: 2,
-        phase: "2. Labour PF (Sous-soleuse)",
+        phase: "2. Labour sous-soleuse",
         month: "Novembre",
-        title: "Sous-soleuse (Valide le labour sans dégrader le score de sol PF)",
+        title: "Sous-soleuse (valide le labour sans dégrader la note environnementale de sol)",
         recommendedToolIds: ["fs25-sous-soleuse", "fs25-charrue"],
         speed: "12 km/h",
-        notes: "En Precision Farming, la sous-soleuse préserve le score de sol par rapport à la charrue.",
-        fs25YieldImpact: "+10% (Labour validé) et score PF préservé"
+        notes: "La sous-soleuse préserve le score de sol par rapport à la charrue.",
+        fs25YieldImpact: "+10% (labour validé) et score de sol préservé"
+      }
+    ]
+  },
+  {
+    id: "fs25-mais-ensilage",
+    name: "Maïs pour ensilage",
+    family: "lourdes",
+    familyLabel: "Cultures avec labour obligatoire",
+    dlc: "Jeu de base",
+    rotationCategory: "roots",
+    harvestPeriod: "Septembre - octobre (coupe plante entière)",
+    sowPeriod: "Avril - mai",
+    hasStraw: false,
+    needsPlowing: true,
+    directDrillCompatible: false,
+    pfNitrogenTarget: "180-220 kg N/ha",
+    idealNextCrops: [
+      { cropId: "fs25-ble", bonus: "+15% (maïs ensilage récolté tôt vers blé d'hiver optimal)" },
+      { cropId: "fs25-seigle-vert", bonus: "+18% (vers seigle vert dérobé d'hiver)" },
+      { cropId: "fs25-soja", bonus: "+15% (vers soja)" }
+    ],
+    badNextCrops: [
+      { cropId: "fs25-mais-ensilage", malus: "-20% (monoculture de maïs ensilage)" },
+      { cropId: "fs25-mais-grain", malus: "-15% (maïs consécutif)" }
+    ],
+    residuesType: "Chaumes rases coupées à l'ensileuse (sous-soleuse requise)",
+    defaultSteps: [
+      {
+        order: 1,
+        phase: "1. Sous-soleuse",
+        month: "Octobre",
+        title: "Sous-soleuse et décompacteur (valide le labour après ensilage)",
+        recommendedToolIds: ["fs25-sous-soleuse"],
+        speed: "12 km/h",
+        notes: "Décompacte le passage répété des remorques d'ensilage.",
+        fs25YieldImpact: "+10% (labour)"
       }
     ]
   },
@@ -529,75 +792,76 @@ const CROPS_DATABASE = [
     name: "Oignons",
     family: "premium",
     familyLabel: "Légumes et bulbes",
-    dlc: "Premium Expansion",
+    dlc: "Extension Premium",
     rotationCategory: "roots",
-    harvestPeriod: "Août - Octobre",
-    sowPeriod: "Mars - Avril",
+    harvestPeriod: "Août - octobre",
+    sowPeriod: "Mars - avril",
     hasStraw: false,
     needsPlowing: true,
     directDrillCompatible: false,
     pfNitrogenTarget: "120-150 kg N/ha",
     idealNextCrops: [
-      { cropId: "fs25-ble", bonus: "+18% (Rotation optimale : Oignons vers Blé d'hiver)" },
-      { cropId: "fs25-orge", bonus: "+15% (Excellente rotation vers Céréale)" },
-      { cropId: "fs25-soja", bonus: "+15% (Oignons vers Légumineuse)" },
-      { cropId: "fs25-pois-haricots", bonus: "+15% (Oignons vers Pois ou Haricots)" }
+      { cropId: "fs25-ble", bonus: "+18% (rotation optimale : oignons vers blé d'hiver)" },
+      { cropId: "fs25-orge", bonus: "+15% (excellente rotation vers céréale)" },
+      { cropId: "fs25-epeautre", bonus: "+15% (oignons vers épeautre)" },
+      { cropId: "fs25-soja", bonus: "+15% (oignons vers légumineuse)" },
+      { cropId: "fs25-pois-haricots", bonus: "+15% (oignons vers pois ou haricots)" }
     ],
     badNextCrops: [
-      { cropId: "fs25-oignons", malus: "-25% (Pénalité monoculture Oignons sur Oignons)" },
-      { cropId: "fs25-carottes-panais", malus: "-15% (Légumes successifs)" },
-      { cropId: "fs25-betterave-rouge", malus: "-15% (Légumes successifs)" },
-      { cropId: "fs25-pomme-de-terre", malus: "-12% (Tubercules successifs)" }
+      { cropId: "fs25-oignons", malus: "-25% (pénalité de monoculture oignons sur oignons)" },
+      { cropId: "fs25-carottes-panais", malus: "-15% (légumes successifs)" },
+      { cropId: "fs25-betterave-rouge", malus: "-15% (légumes successifs)" },
+      { cropId: "fs25-pomme-de-terre", malus: "-12% (tubercules successifs)" }
     ],
-    residuesType: "Fanes et billons résiduels (Sous-soleuse requise)",
+    residuesType: "Fanes et billons résiduels (sous-soleuse requise)",
     defaultSteps: [
       {
         order: 1,
         phase: "1. Sous-soleuse",
         month: "Octobre",
-        title: "Sous-soleuse (Aplanit les billons et valide le labour)",
+        title: "Sous-soleuse (aplanit les billons et valide le labour)",
         recommendedToolIds: ["fs25-sous-soleuse"],
         speed: "12 km/h",
-        notes: "Aplanit les buttes d'oignons et valide l'état de labour sans dégrader le score de sol PF.",
-        fs25YieldImpact: "+10% (Labour)"
+        notes: "Aplanit les buttes d'oignons et valide l'état de labour sans dégrader la note environnementale.",
+        fs25YieldImpact: "+10% (labour)"
       }
     ]
   },
   {
     id: "fs25-carottes-panais",
-    name: "Carottes et Panais",
+    name: "Carottes et panais",
     family: "premium",
     familyLabel: "Légumes racines",
-    dlc: "Premium Expansion",
+    dlc: "Extension Premium",
     rotationCategory: "roots",
-    harvestPeriod: "Août - Novembre",
-    sowPeriod: "Avril - Mai",
+    harvestPeriod: "Août - novembre",
+    sowPeriod: "Avril - mai",
     hasStraw: false,
     needsPlowing: true,
     directDrillCompatible: false,
     pfNitrogenTarget: "120-160 kg N/ha",
     idealNextCrops: [
-      { cropId: "fs25-ble", bonus: "+15% (Légumes racines vers Céréale d'hiver)" },
-      { cropId: "fs25-orge", bonus: "+15% (Très bon précédent)" },
-      { cropId: "fs25-soja", bonus: "+12% (Bonne rotation)" }
+      { cropId: "fs25-ble", bonus: "+15% (légumes racines vers céréale d'hiver)" },
+      { cropId: "fs25-orge", bonus: "+15% (très bon précédent)" },
+      { cropId: "fs25-soja", bonus: "+12% (bonne rotation)" }
     ],
     badNextCrops: [
-      { cropId: "fs25-carottes-panais", malus: "-20% (Monoculture Carottes ou Panais)" },
-      { cropId: "fs25-oignons", malus: "-15% (Légumes et bulbes consécutifs)" },
-      { cropId: "fs25-betterave-rouge", malus: "-15% (Légumes racines consécutifs)" },
-      { cropId: "fs25-pomme-de-terre", malus: "-15% (Tubercules)" }
+      { cropId: "fs25-carottes-panais", malus: "-20% (monoculture carottes ou panais)" },
+      { cropId: "fs25-oignons", malus: "-15% (légumes et bulbes consécutifs)" },
+      { cropId: "fs25-betterave-rouge", malus: "-15% (légumes racines consécutifs)" },
+      { cropId: "fs25-pomme-de-terre", malus: "-15% (tubercules)" }
     ],
-    residuesType: "Fanes et billons résiduels (Sous-soleuse requise)",
+    residuesType: "Fanes et billons résiduels (sous-soleuse requise)",
     defaultSteps: [
       {
         order: 1,
         phase: "1. Sous-soleuse",
         month: "Novembre",
-        title: "Sous-soleuse (Élimine les buttes et valide le labour)",
+        title: "Sous-soleuse (élimine les buttes et valide le labour)",
         recommendedToolIds: ["fs25-sous-soleuse"],
         speed: "12 km/h",
         notes: "Aplanit les billons et valide l'état de labour.",
-        fs25YieldImpact: "+10% (Labour)"
+        fs25YieldImpact: "+10% (labour)"
       }
     ]
   },
@@ -606,26 +870,26 @@ const CROPS_DATABASE = [
     name: "Betteraves rouges",
     family: "premium",
     familyLabel: "Légumes racines",
-    dlc: "Premium Expansion",
+    dlc: "Extension Premium",
     rotationCategory: "roots",
-    harvestPeriod: "Septembre - Novembre",
-    sowPeriod: "Avril - Mai",
+    harvestPeriod: "Septembre - novembre",
+    sowPeriod: "Avril - mai",
     hasStraw: false,
     needsPlowing: true,
     directDrillCompatible: false,
     pfNitrogenTarget: "140-170 kg N/ha",
     idealNextCrops: [
-      { cropId: "fs25-ble", bonus: "+15% (Rotation vers Céréale)" },
-      { cropId: "fs25-soja", bonus: "+12% (Vers Légumineuse)" }
+      { cropId: "fs25-ble", bonus: "+15% (rotation vers céréale)" },
+      { cropId: "fs25-soja", bonus: "+12% (vers légumineuse)" }
     ],
-    badNextCrops: [{ cropId: "fs25-betterave-rouge", malus: "-20% (Monoculture Betteraves)" }],
+    badNextCrops: [{ cropId: "fs25-betterave-rouge", malus: "-20% (monoculture de betteraves)" }],
     residuesType: "Fanes au sol",
     defaultSteps: [
       {
         order: 1,
         phase: "1. Sous-soleuse",
         month: "Novembre",
-        title: "Sous-soleuse (Labour validé)",
+        title: "Sous-soleuse (labour validé)",
         recommendedToolIds: ["fs25-sous-soleuse"],
         speed: "12 km/h",
         notes: "Supprime le malus de labour.",
@@ -640,24 +904,24 @@ const CROPS_DATABASE = [
     familyLabel: "Cultures avec labour obligatoire",
     dlc: "Jeu de base",
     rotationCategory: "roots",
-    harvestPeriod: "Août - Septembre",
-    sowPeriod: "Mars - Avril",
+    harvestPeriod: "Août - septembre",
+    sowPeriod: "Mars - avril",
     hasStraw: false,
     needsPlowing: true,
     directDrillCompatible: false,
     pfNitrogenTarget: "180-220 kg N/ha",
     idealNextCrops: [
-      { cropId: "fs25-ble", bonus: "+15% (Tubercules vers Blé d'hiver)" },
-      { cropId: "fs25-orge", bonus: "+15% (Excellent précédent)" }
+      { cropId: "fs25-ble", bonus: "+15% (tubercules vers blé d'hiver)" },
+      { cropId: "fs25-orge", bonus: "+15% (excellent précédent)" }
     ],
-    badNextCrops: [{ cropId: "fs25-pomme-de-terre", malus: "-20% (Monoculture Pommes de terre)" }],
+    badNextCrops: [{ cropId: "fs25-pomme-de-terre", malus: "-20% (monoculture de pommes de terre)" }],
     residuesType: "Fanes broyées",
     defaultSteps: [
       {
         order: 1,
         phase: "1. Sous-soleuse",
         month: "Septembre",
-        title: "Sous-solage (Valide le labour)",
+        title: "Sous-solage (valide le labour)",
         recommendedToolIds: ["fs25-sous-soleuse"],
         speed: "12 km/h",
         notes: "Supprime le malus de labour.",
@@ -672,21 +936,21 @@ const CROPS_DATABASE = [
     familyLabel: "Cultures avec labour obligatoire",
     dlc: "Jeu de base",
     rotationCategory: "roots",
-    harvestPeriod: "Octobre - Novembre",
-    sowPeriod: "Avril - Mai",
+    harvestPeriod: "Octobre - novembre",
+    sowPeriod: "Avril - mai",
     hasStraw: false,
     needsPlowing: true,
     directDrillCompatible: false,
     pfNitrogenTarget: "160-200 kg N/ha",
-    idealNextCrops: [{ cropId: "fs25-ble", bonus: "+15% (Betteraves vers Blé d'hiver)" }],
-    badNextCrops: [{ cropId: "fs25-betterave", malus: "-20% (Monoculture Betteraves)" }],
+    idealNextCrops: [{ cropId: "fs25-ble", bonus: "+15% (betteraves vers blé d'hiver)" }],
+    badNextCrops: [{ cropId: "fs25-betterave", malus: "-20% (monoculture de betteraves)" }],
     residuesType: "Feuilles broyées",
     defaultSteps: [
       {
         order: 1,
         phase: "1. Sous-soleuse",
         month: "Novembre",
-        title: "Sous-soleuse (Labour validé)",
+        title: "Sous-soleuse (labour validé)",
         recommendedToolIds: ["fs25-sous-soleuse"],
         speed: "12 km/h",
         notes: "Passage de la sous-soleuse.",
@@ -695,7 +959,7 @@ const CROPS_DATABASE = [
     ]
   },
 
-  // ==================== 4. OLÉAGINEUX & FIBRES ====================
+  // ==================== 4. OLÉAGINEUX ET FIBRES ====================
   {
     id: "fs25-colza",
     name: "Colza",
@@ -703,22 +967,24 @@ const CROPS_DATABASE = [
     familyLabel: "Oléagineux et protéagineux",
     dlc: "Jeu de base",
     rotationCategory: "oilseeds",
-    harvestPeriod: "Juillet - Août",
-    sowPeriod: "Août - Septembre",
+    harvestPeriod: "Juillet - août",
+    sowPeriod: "Août - septembre",
     hasStraw: false,
     needsPlowing: false,
     directDrillCompatible: true,
     pfNitrogenTarget: "180-220 kg N/ha",
     idealNextCrops: [
-      { cropId: "fs25-ble", bonus: "+18% (Rotation optimale : Colza vers Blé d'hiver)" },
-      { cropId: "fs25-orge", bonus: "+15% (Excellente rotation)" },
-      { cropId: "fs25-seigle", bonus: "+15% (Colza vers Seigle)" },
-      { cropId: "fs25-soja", bonus: "+12% (Bonne rotation)" }
+      { cropId: "fs25-ble", bonus: "+18% (rotation optimale : colza vers blé d'hiver)" },
+      { cropId: "fs25-epeautre", bonus: "+18% (colza vers épeautre)" },
+      { cropId: "fs25-orge", bonus: "+15% (excellente rotation)" },
+      { cropId: "fs25-seigle", bonus: "+15% (colza vers seigle)" },
+      { cropId: "fs25-soja", bonus: "+12% (bonne rotation)" }
     ],
     badNextCrops: [
-      { cropId: "fs25-colza", malus: "-25% (Pénalité monoculture Colza)" },
-      { cropId: "fs25-tournesol", malus: "-12% (Oléagineux consécutifs)" },
-      { cropId: "fs25-lin", malus: "-12% (Oléagineux consécutifs)" }
+      { cropId: "fs25-colza", malus: "-25% (pénalité de monoculture colza)" },
+      { cropId: "fs25-tournesol", malus: "-12% (oléagineux consécutifs)" },
+      { cropId: "fs25-lin", malus: "-12% (oléagineux consécutifs)" },
+      { cropId: "fs25-moutarde", malus: "-15% (brassicacées consécutives)" }
     ],
     residuesType: "Chaumes fines de colza",
     defaultSteps: [
@@ -739,27 +1005,28 @@ const CROPS_DATABASE = [
     name: "Lin",
     family: "oleoprot",
     familyLabel: "Oléagineux et fibres",
-    dlc: "Le Mechet & Mods",
+    dlc: "Carte Le Mechet et mods",
     rotationCategory: "oilseeds",
-    harvestPeriod: "Juillet - Août",
-    sowPeriod: "Mars - Avril",
+    harvestPeriod: "Juillet - août",
+    sowPeriod: "Mars - avril",
     hasStraw: true,
     needsPlowing: false,
     directDrillCompatible: true,
     pfNitrogenTarget: "80-110 kg N/ha",
     idealNextCrops: [
-      { cropId: "fs25-ble", bonus: "+18% (Lin vers Blé d'hiver - Précédent nettoyant exceptionnel)" },
-      { cropId: "fs25-orge", bonus: "+15% (Lin vers Orge)" }
+      { cropId: "fs25-ble", bonus: "+18% (lin vers blé d'hiver - précédent nettoyant exceptionnel)" },
+      { cropId: "fs25-epeautre", bonus: "+18% (lin vers épeautre)" },
+      { cropId: "fs25-orge", bonus: "+15% (lin vers orge)" }
     ],
     badNextCrops: [
-      { cropId: "fs25-lin", malus: "-25% (Monoculture Lin)" },
-      { cropId: "fs25-colza", malus: "-12% (Oléagineux)" }
+      { cropId: "fs25-lin", malus: "-25% (monoculture de lin)" },
+      { cropId: "fs25-colza", malus: "-12% (oléagineux)" }
     ],
     residuesType: "Paille de lin (fibres)",
     defaultSteps: [
       {
         order: 1,
-        phase: "1. Paille & Chaumes",
+        phase: "1. Paille et chaumes",
         month: "Août",
         title: "Récolte paille de lin et broyage",
         recommendedToolIds: ["fs25-presse-balles", "fs25-broyeur"],
@@ -774,19 +1041,20 @@ const CROPS_DATABASE = [
     name: "Chanvre",
     family: "speciales",
     familyLabel: "Cultures industrielles et fibres",
-    dlc: "Le Mechet & Mods",
+    dlc: "Carte Le Mechet et mods",
     rotationCategory: "special",
-    harvestPeriod: "Août - Septembre",
-    sowPeriod: "Avril - Mai",
+    harvestPeriod: "Août - septembre",
+    sowPeriod: "Avril - mai",
     hasStraw: true,
     needsPlowing: false,
     directDrillCompatible: true,
     pfNitrogenTarget: "90-120 kg N/ha",
     idealNextCrops: [
-      { cropId: "fs25-ble", bonus: "+18% (Chanvre vers Blé d'hiver - Étouffe les adventices)" },
-      { cropId: "fs25-seigle", bonus: "+15% (Chanvre vers Seigle)" }
+      { cropId: "fs25-ble", bonus: "+18% (chanvre vers blé d'hiver - étouffe les adventices)" },
+      { cropId: "fs25-epeautre", bonus: "+18% (chanvre vers épeautre)" },
+      { cropId: "fs25-seigle", bonus: "+15% (chanvre vers seigle)" }
     ],
-    badNextCrops: [{ cropId: "fs25-chanvre", malus: "-20% (Monoculture Chanvre)" }],
+    badNextCrops: [{ cropId: "fs25-chanvre", malus: "-20% (monoculture de chanvre)" }],
     residuesType: "Paille de chanvre et chènevotte",
     defaultSteps: [
       {
@@ -809,18 +1077,19 @@ const CROPS_DATABASE = [
     dlc: "Jeu de base",
     rotationCategory: "oilseeds",
     harvestPeriod: "Octobre",
-    sowPeriod: "Avril - Mai",
+    sowPeriod: "Avril - mai",
     hasStraw: false,
     needsPlowing: false,
     directDrillCompatible: false,
     pfNitrogenTarget: "120-150 kg N/ha",
     idealNextCrops: [
-      { cropId: "fs25-ble", bonus: "+15% (Tournesol vers Blé d'hiver)" },
-      { cropId: "fs25-soja", bonus: "+12% (Tournesol vers Soja)" }
+      { cropId: "fs25-ble", bonus: "+15% (tournesol vers blé d'hiver)" },
+      { cropId: "fs25-epeautre", bonus: "+15% (tournesol vers épeautre)" },
+      { cropId: "fs25-soja", bonus: "+12% (tournesol vers soja)" }
     ],
     badNextCrops: [
-      { cropId: "fs25-tournesol", malus: "-20% (Monoculture Tournesol)" },
-      { cropId: "fs25-colza", malus: "-12% (Oléagineux consécutifs)" }
+      { cropId: "fs25-tournesol", malus: "-20% (monoculture de tournesol)" },
+      { cropId: "fs25-colza", malus: "-12% (oléagineux consécutifs)" }
     ],
     residuesType: "Tiges épaisses de tournesol",
     defaultSteps: [
@@ -836,34 +1105,67 @@ const CROPS_DATABASE = [
       }
     ]
   },
+  {
+    id: "fs25-sarrasin",
+    name: "Sarrasin (blé noir / dérobée d'été)",
+    family: "cereales",
+    familyLabel: "Céréales et dérobées",
+    dlc: "Carte Le Mechet et mods",
+    rotationCategory: "special",
+    harvestPeriod: "Septembre - octobre",
+    sowPeriod: "Mai - juin",
+    hasStraw: false,
+    needsPlowing: false,
+    directDrillCompatible: true,
+    pfNitrogenTarget: "40-70 kg N/ha (très sobre)",
+    idealNextCrops: [
+      { cropId: "fs25-ble", bonus: "+15% (sarrasin vers blé d'hiver)" },
+      { cropId: "fs25-orge", bonus: "+15% (vers orge)" }
+    ],
+    badNextCrops: [{ cropId: "fs25-sarrasin", malus: "-15% (monoculture)" }],
+    residuesType: "Résidus fins à décomposition rapide",
+    defaultSteps: [
+      {
+        order: 1,
+        phase: "1. Chaumes",
+        month: "Octobre",
+        title: "Broyage léger et préparation",
+        recommendedToolIds: ["fs25-broyeur"],
+        speed: "15 km/h",
+        notes: "Excellente plante assainissante.",
+        fs25YieldImpact: "+2.5%"
+      }
+    ]
+  },
 
-  // ==================== 5. NOUVEAUTÉS FS25 & ENGRAIS VERTS ====================
+  // ==================== 5. ENGRAIS VERTS ET NOUVEAUTÉS ====================
   {
     id: "fs25-moutarde",
     name: "Moutarde",
     family: "oleoprot",
-    familyLabel: "Engrais verts et CIPAN",
-    dlc: "Le Mechet & Mods",
+    familyLabel: "Engrais verts et cultures intermédiaires",
+    dlc: "Carte Le Mechet et mods",
     rotationCategory: "oilseeds",
-    harvestPeriod: "Octobre ou Destruction hivernale",
-    sowPeriod: "Août - Septembre",
+    harvestPeriod: "Octobre ou destruction hivernale",
+    sowPeriod: "Août - septembre",
     hasStraw: false,
     needsPlowing: false,
     directDrillCompatible: true,
     pfNitrogenTarget: "60-90 kg N/ha",
     idealNextCrops: [
-      { cropId: "fs25-mais-grain", bonus: "+18% (Moutarde vers Maïs au printemps)" },
-      { cropId: "fs25-soja", bonus: "+15% (Moutarde vers Soja)" },
-      { cropId: "fs25-pomme-de-terre", bonus: "+15% (Effet assainissant nématicide)" }
+      { cropId: "fs25-mais-grain", bonus: "+18% (moutarde vers maïs au printemps)" },
+      { cropId: "fs25-mais-ensilage", bonus: "+18% (moutarde vers maïs ensilage)" },
+      { cropId: "fs25-soja", bonus: "+15% (moutarde vers soja)" },
+      { cropId: "fs25-pomme-de-terre", bonus: "+15% (effet assainissant nématicide)" }
     ],
     badNextCrops: [
-      { cropId: "fs25-colza", malus: "-15% (Brassicacées consécutives)" }
+      { cropId: "fs25-colza", malus: "-15% (brassicacées consécutives)" }
     ],
     residuesType: "Matière verte broyée / engrais vert",
     defaultSteps: [
       {
         order: 1,
-        phase: "1. Destruction Couvert",
+        phase: "1. Destruction du couvert",
         month: "Mars",
         title: "Broyage ou incorporation de la moutarde avant semis de printemps",
         recommendedToolIds: ["fs25-broyeur", "fs25-semoir-direct"],
@@ -880,17 +1182,17 @@ const CROPS_DATABASE = [
     familyLabel: "Nouveautés et riziculture",
     dlc: "Jeu de base",
     rotationCategory: "cereals",
-    harvestPeriod: "Octobre - Novembre",
-    sowPeriod: "Avril - Mai",
+    harvestPeriod: "Octobre - novembre",
+    sowPeriod: "Avril - mai",
     hasStraw: false,
     needsPlowing: false,
     directDrillCompatible: false,
     pfNitrogenTarget: "160-190 kg N/ha",
     idealNextCrops: [
-      { cropId: "fs25-soja", bonus: "+15% (Riz vers Légumineuse)" },
-      { cropId: "fs25-pois-haricots", bonus: "+15% (Riz vers Pois)" }
+      { cropId: "fs25-soja", bonus: "+15% (riz vers légumineuse)" },
+      { cropId: "fs25-pois-haricots", bonus: "+15% (riz vers pois)" }
     ],
-    badNextCrops: [{ cropId: "fs25-riz-inonde", malus: "-15% (Monoculture Riz)" }],
+    badNextCrops: [{ cropId: "fs25-riz-inonde", malus: "-15% (monoculture de riz)" }],
     residuesType: "Chaumes dans rizière drainée",
     defaultSteps: [
       {
@@ -912,24 +1214,24 @@ const CROPS_DATABASE = [
     familyLabel: "Nouveautés et maraîchage",
     dlc: "Jeu de base",
     rotationCategory: "roots",
-    harvestPeriod: "Printemps & Automne (2 récoltes par an)",
-    sowPeriod: "Mars ou Août",
+    harvestPeriod: "Printemps et automne (2 récoltes par an)",
+    sowPeriod: "Mars ou août",
     hasStraw: false,
     needsPlowing: false,
     directDrillCompatible: true,
     pfNitrogenTarget: "100-140 kg N/ha",
     idealNextCrops: [
-      { cropId: "fs25-ble", bonus: "+15% (Épinards vers Blé)" },
-      { cropId: "fs25-soja", bonus: "+15% (Épinards vers Soja)" }
+      { cropId: "fs25-ble", bonus: "+15% (épinards vers blé)" },
+      { cropId: "fs25-soja", bonus: "+15% (épinards vers soja)" }
     ],
-    badNextCrops: [{ cropId: "fs25-epinards", malus: "-15% (Plus de 2 récoltes successives)" }],
+    badNextCrops: [{ cropId: "fs25-epinards", malus: "-15% (plus de 2 récoltes successives)" }],
     residuesType: "Résidus fins",
     defaultSteps: [
       {
         order: 1,
-        phase: "1. Broyage et Chaux",
+        phase: "1. Broyage et chaux",
         month: "Novembre",
-        title: "Broyage et chaux variable PF",
+        title: "Broyage et chaux variable",
         recommendedToolIds: ["fs25-broyeur", "fs25-epandeur-chaux"],
         speed: "15 km/h",
         notes: "Broyer et chauler.",
@@ -938,21 +1240,86 @@ const CROPS_DATABASE = [
     ]
   },
 
-  // ==================== 6. FORESTERIE, FOURRAGES & SPÉCIALES ====================
+  // ==================== 6. PRAIRIES ET CULTURES PÉRENNES ====================
+  {
+    id: "fs25-herbe",
+    name: "Herbe semée (ray-grass / prairie temporaire)",
+    family: "fourrages",
+    familyLabel: "Fourrages et élevage",
+    dlc: "Jeu de base",
+    rotationCategory: "grass",
+    harvestPeriod: "Avril à novembre (3-4 coupes par an)",
+    sowPeriod: "Mars - avril ou août - septembre",
+    hasStraw: false,
+    needsPlowing: false,
+    directDrillCompatible: false,
+    pfNitrogenTarget: "120-160 kg N/ha par coupe",
+    idealNextCrops: [
+      { cropId: "fs25-mais-grain", bonus: "+20% (retournement de prairie temporaire vers maïs grain)" },
+      { cropId: "fs25-mais-ensilage", bonus: "+20% (retournement vers maïs ensilage)" },
+      { cropId: "fs25-ble", bonus: "+18% (retournement vers blé d'hiver)" }
+    ],
+    badNextCrops: [],
+    residuesType: "Andains d'herbe fraîche",
+    defaultSteps: [
+      {
+        order: 1,
+        phase: "1. Rouleau à herbe",
+        month: "Après fauche",
+        title: "Passage du rouleau à herbe post-fauche",
+        recommendedToolIds: ["fs25-rouleau-herbe"],
+        speed: "12-15 km/h",
+        notes: "Le rouleau à herbe confère un niveau de fertilisation sans dépense d'intrant.",
+        fs25YieldImpact: "+1 niveau de fertilisation gratuit"
+      }
+    ]
+  },
+  {
+    id: "fs25-prairie-permanente",
+    name: "Herbe de prairie permanente",
+    family: "fourrages",
+    familyLabel: "Fourrages et élevage",
+    dlc: "Jeu de base et carte Le Mechet",
+    rotationCategory: "grass",
+    harvestPeriod: "Avril à novembre (coupes ou pâture)",
+    sowPeriod: "Pérenne (non ressemée annuellement)",
+    hasStraw: false,
+    needsPlowing: false,
+    directDrillCompatible: false,
+    pfNitrogenTarget: "100-140 kg N/ha par coupe",
+    idealNextCrops: [
+      { cropId: "fs25-prairie-permanente", bonus: "+0% (maintien en prairie permanente)" },
+      { cropId: "fs25-mais-grain", bonus: "+20% (en cas de mise en culture exceptionnelle)" }
+    ],
+    badNextCrops: [],
+    residuesType: "Fourrage d'herbe permanente",
+    defaultSteps: [
+      {
+        order: 1,
+        phase: "1. Entretien prairie",
+        month: "Avril",
+        title: "Ébousage, roulage et fertilisation organique de printemps",
+        recommendedToolIds: ["fs25-rouleau-herbe", "fs25-epandeur-chaux"],
+        speed: "15 km/h",
+        notes: "Maintien de la flore prairiale pérenne.",
+        fs25YieldImpact: "+1 niveau de fertilisation"
+      }
+    ]
+  },
   {
     id: "fs25-peupliers",
     name: "Peupliers",
     family: "platinum",
     familyLabel: "Foresterie et bois",
-    dlc: "Platinum Expansion",
+    dlc: "Extension Platinum",
     rotationCategory: "fallow",
     harvestPeriod: "Toute l'année après 16 mois",
-    sowPeriod: "Mars - Mai",
+    sowPeriod: "Mars - mai",
     hasStraw: false,
     needsPlowing: false,
     directDrillCompatible: false,
     pfNitrogenTarget: "100 kg N/ha",
-    idealNextCrops: [{ cropId: "fs25-ble", bonus: "+10% (Après broyage de souches)" }],
+    idealNextCrops: [{ cropId: "fs25-ble", bonus: "+10% (après broyage de souches)" }],
     badNextCrops: [],
     residuesType: "Souches de peupliers",
     defaultSteps: [
@@ -964,39 +1331,7 @@ const CROPS_DATABASE = [
         recommendedToolIds: ["fs25-pumps-hoses-ombilical", "fs25-epandeur-chaux"],
         speed: "16 km/h",
         notes: "Fertiliser les souches pour maximiser le volume de bois.",
-        fs25YieldImpact: "+45% (Engrais max)"
-      }
-    ]
-  },
-  {
-    id: "fs25-herbe",
-    name: "Herbe et Prairies",
-    family: "fourrages",
-    familyLabel: "Fourrages et élevage",
-    dlc: "Jeu de base",
-    rotationCategory: "grass",
-    harvestPeriod: "Avril à Novembre (3-4 coupes par an)",
-    sowPeriod: "Mars - Avril ou Août - Septembre",
-    hasStraw: false,
-    needsPlowing: false,
-    directDrillCompatible: false,
-    pfNitrogenTarget: "120-160 kg N/ha par coupe",
-    idealNextCrops: [
-      { cropId: "fs25-mais-grain", bonus: "+20% (Retournement de prairie vers Maïs)" },
-      { cropId: "fs25-ble", bonus: "+15% (Retournement de prairie vers Blé)" }
-    ],
-    badNextCrops: [],
-    residuesType: "Andains d'herbe fraîche",
-    defaultSteps: [
-      {
-        order: 1,
-        phase: "1. Rouleau à herbe (PF)",
-        month: "Après fauche",
-        title: "Passage du rouleau à herbe post-fauche",
-        recommendedToolIds: ["fs25-rouleau-herbe"],
-        speed: "12-15 km/h",
-        notes: "Le rouleau à herbe confère un niveau de fertilisation sans dépense d'intrant.",
-        fs25YieldImpact: "+1 niveau de fertilisation gratuit"
+        fs25YieldImpact: "+45% (engrais maximal)"
       }
     ]
   },
@@ -1007,17 +1342,17 @@ const CROPS_DATABASE = [
     familyLabel: "Cultures spécialisées",
     dlc: "Jeu de base",
     rotationCategory: "special",
-    harvestPeriod: "Octobre - Novembre",
-    sowPeriod: "Avril - Mai",
+    harvestPeriod: "Octobre - novembre",
+    sowPeriod: "Avril - mai",
     hasStraw: false,
     needsPlowing: false,
     directDrillCompatible: false,
     pfNitrogenTarget: "120-160 kg N/ha",
     idealNextCrops: [
-      { cropId: "fs25-ble", bonus: "+15% (Coton vers Blé d'hiver)" },
-      { cropId: "fs25-soja", bonus: "+12% (Coton vers Soja)" }
+      { cropId: "fs25-ble", bonus: "+15% (coton vers blé d'hiver)" },
+      { cropId: "fs25-soja", bonus: "+12% (coton vers soja)" }
     ],
-    badNextCrops: [{ cropId: "fs25-coton", malus: "-20% (Monoculture Coton)" }],
+    badNextCrops: [{ cropId: "fs25-coton", malus: "-20% (monoculture de coton)" }],
     residuesType: "Tiges sèches de coton",
     defaultSteps: [
       {
@@ -1039,37 +1374,37 @@ const CROPS_DATABASE = [
     familyLabel: "Cultures spécialisées",
     dlc: "Jeu de base",
     rotationCategory: "special",
-    harvestPeriod: "Octobre - Décembre",
-    sowPeriod: "Mars - Avril",
+    harvestPeriod: "Octobre - décembre",
+    sowPeriod: "Mars - avril",
     hasStraw: false,
     needsPlowing: true,
     directDrillCompatible: false,
     pfNitrogenTarget: "160-200 kg N/ha",
-    idealNextCrops: [{ cropId: "fs25-soja", bonus: "+15% (Canne vers Soja)" }],
+    idealNextCrops: [{ cropId: "fs25-soja", bonus: "+15% (canne vers soja)" }],
     badNextCrops: [],
     residuesType: "Souches de canne à sucre",
     defaultSteps: [
       {
         order: 1,
-        phase: "1. Sous-soleuse ou Repousse",
+        phase: "1. Sous-soleuse ou repousse",
         month: "Décembre",
         title: "Sous-soleuse ou fertilisation de repousse",
         recommendedToolIds: ["fs25-sous-soleuse", "fs25-epandeur-chaux"],
         speed: "12 km/h",
         notes: "Détruire les souches pour remettre en culture ou fertiliser pour la repousse.",
-        fs25YieldImpact: "+10% (Labour validé)"
+        fs25YieldImpact: "+10% (labour validé)"
       }
     ]
   },
   {
     id: "fs25-raisins-olives",
-    name: "Vigne et Olives",
+    name: "Vigne et olives",
     family: "speciales",
     familyLabel: "Cultures spécialisées",
     dlc: "Jeu de base",
     rotationCategory: "special",
-    harvestPeriod: "Septembre - Octobre",
-    sowPeriod: "Mars - Mai",
+    harvestPeriod: "Septembre - octobre",
+    sowPeriod: "Mars - mai",
     hasStraw: false,
     needsPlowing: false,
     directDrillCompatible: false,
@@ -1080,7 +1415,7 @@ const CROPS_DATABASE = [
     defaultSteps: [
       {
         order: 1,
-        phase: "1. Tonte et Broyage",
+        phase: "1. Tonte et broyage",
         month: "Octobre",
         title: "Broyage des sarments et tonte inter-rang",
         recommendedToolIds: ["fs25-broyeur"],

@@ -1,7 +1,7 @@
 /**
- * Base de données des matériels et outils officiels FARMING SIMULATOR 25 (FS25)
- * Inclut le jeu de base, toutes les extensions et le DLC Precision Farming.
- * Rédigé exclusivement en français sans équivalents en anglais.
+ * Base de données des matériels et outils officiels Farming Simulator 25 (FS25)
+ * Inclut le jeu de base, toutes les extensions officielles et le module d'agriculture de précision.
+ * Rédigé exclusivement en français selon les règles typographiques françaises.
  */
 const TOOLS_DATABASE = [
   // ==================== 1. AGRICULTURE DE PRÉCISION ====================
@@ -10,9 +10,9 @@ const TOOLS_DATABASE = [
     name: "Échantillonneur de sol automatique",
     category: "precision",
     categoryLabel: "Agriculture de précision - Échantillonnage",
-    dlc: "Precision Farming",
+    dlc: "Agriculture de précision",
     speed: "25 km/h",
-    powerRequired: "Véhicule utilitaire ou attelage 3-points",
+    powerRequired: "Véhicule utilitaire ou attelage trois points",
     fs25Bonus: "Révèle la carte des types de sol, du pH et de l'azote",
     purpose: "Prélèvement d'échantillons de sol par carottage pour cartographier le champ.",
     advantages: [
@@ -29,8 +29,8 @@ const TOOLS_DATABASE = [
     id: "fs25-pf-capteurs-isaria",
     name: "Capteurs optiques de biomasse pour tracteur",
     category: "precision",
-    categoryLabel: "Agriculture de précision - Capteurs azote",
-    dlc: "Precision Farming",
+    categoryLabel: "Agriculture de précision - Capteurs d'azote",
+    dlc: "Agriculture de précision",
     speed: "Selon outil attelé",
     powerRequired: "Montage sur rétroviseurs ou toit du tracteur",
     fs25Bonus: "Ajustement en temps réel de la dose d'azote selon la réflectance foliaire",
@@ -49,15 +49,15 @@ const TOOLS_DATABASE = [
     name: "Pulvérisateur ciblé intelligent par caméras",
     category: "precision",
     categoryLabel: "Agriculture de précision - Désherbage ciblé",
-    dlc: "Precision Farming",
+    dlc: "Agriculture de précision",
     speed: "15 km/h",
-    powerRequired: "200 ch / Automoteur",
-    fs25Bonus: "Économie jusqu'à 90% d'herbicide et score désherbage 100/100",
+    powerRequired: "200 ch / automoteur",
+    fs25Bonus: "Économie jusqu'à 90% d'herbicide et score de désherbage maximal (100/100)",
     purpose: "Détection des adventices par caméras embarquées et ouverture ciblée des buses.",
     advantages: [
       "Application stricte sur les mauvaises herbes ciblées",
       "Réduction drastique des coûts d'herbicide",
-      "Score maximal dans Precision Farming"
+      "Score maximal dans le bilan environnemental"
     ],
     precautions: [
       "Vérifier l'activation de l'option de pulvérisation ciblée lors de l'achat"
@@ -69,7 +69,7 @@ const TOOLS_DATABASE = [
     name: "Capteur d'analyse de lisier en temps réel",
     category: "precision",
     categoryLabel: "Agriculture de précision - Lisier",
-    dlc: "Precision Farming",
+    dlc: "Agriculture de précision",
     speed: "Selon tonne à lisier",
     powerRequired: "Option tonne à lisier",
     fs25Bonus: "Mesure de la teneur réelle en éléments fertilisants du lisier",
@@ -84,7 +84,7 @@ const TOOLS_DATABASE = [
     gameTip: "Idéal couplé avec le système d'épandage ombilical."
   },
 
-  // ==================== 2. BROYAGE & GESTION DES RÉSIDUS ====================
+  // ==================== 2. BROYAGE ET GESTION DES RÉSIDUS ====================
   {
     id: "fs25-broyeur",
     name: "Broyeur de résidus et chaumes",
@@ -96,7 +96,7 @@ const TOOLS_DATABASE = [
     fs25Bonus: "+2.5% de rendement sur la culture suivante",
     purpose: "Broyage des chaumes de céréales, cannes de maïs et tournesol.",
     advantages: [
-      "Valide l'état de champ 'Chaumes broyées' (+2.5% rendement)",
+      "Valide l'état de champ 'chaumes broyées' (+2.5% de rendement)",
       "Facilite l'action des semoirs directs",
       "Ne génère aucune pierre"
     ],
@@ -110,7 +110,7 @@ const TOOLS_DATABASE = [
     name: "Broyeur forestier et de souches",
     category: "broyage",
     categoryLabel: "Foresterie et remise en culture",
-    dlc: "Platinum Expansion",
+    dlc: "Extension Platinum",
     speed: "5 à 8 km/h",
     powerRequired: "240 à 400 ch",
     fs25Bonus: "Élimination des souches pour remise en culture agricole",
@@ -125,7 +125,7 @@ const TOOLS_DATABASE = [
     gameTip: "Après le broyage, passer une charrue avec l'option de création de champs autorisée."
   },
 
-  // ==================== 3. CHAUX, AMENDEMENTS & HIGHLANDS FISHING ====================
+  // ==================== 3. CHAUX ET AMENDEMENTS ====================
   {
     id: "fs25-epandeur-chaux",
     name: "Épandeur d'amendements et chaux à dosage variable",
@@ -134,8 +134,8 @@ const TOOLS_DATABASE = [
     dlc: "Jeu de base",
     speed: "15 à 20 km/h",
     powerRequired: "120 à 220 ch",
-    fs25Bonus: "+15% de rendement et score pH optimal (Precision Farming)",
-    purpose: "Correction du pH selon les 4 types de sol cartographiés.",
+    fs25Bonus: "+15% de rendement et score de pH optimal",
+    purpose: "Correction du pH selon les quatre types de sol cartographiés.",
     advantages: [
       "Modulation automatique de la dose de chaux selon la carte de pH",
       "Largeur de travail jusqu'à 36 mètres"
@@ -150,7 +150,7 @@ const TOOLS_DATABASE = [
     name: "Épandeur d'amendements organiques marins et compost",
     category: "fertilisation",
     categoryLabel: "Amendements organiques",
-    dlc: "Highlands Fishing",
+    dlc: "Extension Highlands Fishing",
     speed: "14 à 18 km/h",
     powerRequired: "140 à 220 ch",
     fs25Bonus: "Fertilisation organique complète issue des sous-produits de pêche",
@@ -169,11 +169,11 @@ const TOOLS_DATABASE = [
     name: "Système ombilical d'injection de lisier",
     category: "fertilisation",
     categoryLabel: "Systèmes ombilicaux",
-    dlc: "Pumps N' Hoses",
+    dlc: "Extension Pumps N' Hoses",
     speed: "14 à 18 km/h",
     powerRequired: "180 à 300 ch",
     fs25Bonus: "Alimentation continue sans tonne lourde et préservation du tassement",
-    purpose: "Injection directe de lisier via tuyauterie souple raccordée à la pompe.",
+    purpose: "Injection directe de lisier par tuyauterie souple raccordée à la pompe.",
     advantages: [
       "Chantier ininterrompu sans rotation de transport",
       "Évite la compaction du sol causée par les tonnes lourdes",
@@ -189,7 +189,7 @@ const TOOLS_DATABASE = [
     name: "Épandeur automoteur grand volume",
     category: "fertilisation",
     categoryLabel: "Épandeurs automoteurs",
-    dlc: "Oxbo Pack",
+    dlc: "Extension Oxbo",
     speed: "16 à 22 km/h",
     powerRequired: "550 ch",
     fs25Bonus: "Débit de chantier élevé avec essieu en crabe protecteur du sol",
@@ -204,7 +204,7 @@ const TOOLS_DATABASE = [
     gameTip: "Idéal pour les entreprises de travaux agricoles et les grandes exploitations."
   },
 
-  // ==================== 4. TRAVAIL DU SOL & SOUS-SOLEUSES ====================
+  // ==================== 4. TRAVAIL DU SOL ET SOUS-SOLEUSES ====================
   {
     id: "fs25-sous-soleuse",
     name: "Sous-soleuse et décompacteur lourd",
@@ -213,7 +213,7 @@ const TOOLS_DATABASE = [
     dlc: "Jeu de base",
     speed: "12 km/h",
     powerRequired: "180 à 350 ch",
-    fs25Bonus: "Valide l'état de labour sans dégrader le score de sol Precision Farming",
+    fs25Bonus: "Valide l'état de labour sans dégrader la note environnementale de sol",
     purpose: "Remplacement de la charrue après maïs, betteraves, pommes de terre, carottes, oignons et panais.",
     advantages: [
       "Élimine l'obligation de labour",
@@ -224,14 +224,14 @@ const TOOLS_DATABASE = [
     precautions: [
       "Ne permet pas de créer de nouvelles parcelles"
     ],
-    gameTip: "L'alternative privilégiée à la charrue pour concilier obligation de labour et score environnemental."
+    gameTip: "L'alternative privilégiée à la charrue pour concilier obligation de labour et note environnementale."
   },
   {
     id: "fs25-butteuse-legumes",
     name: "Butteuse pour légumes racines",
     category: "profond",
     categoryLabel: "Matériel maraîcher",
-    dlc: "Premium Expansion",
+    dlc: "Extension Premium",
     speed: "10 à 12 km/h",
     powerRequired: "140 à 220 ch",
     fs25Bonus: "Conditionne le rendement optimal sur carottes, panais, oignons et betteraves rouges",
@@ -265,7 +265,7 @@ const TOOLS_DATABASE = [
     gameTip: "Idéal après céréales ou oléagineux si un semis classique est envisagé."
   },
 
-  // ==================== 5. SEMOIRS DIRECTS & PLANTATION ====================
+  // ==================== 5. SEMOIRS DIRECTS ET PLANTATION ====================
   {
     id: "fs25-semoir-direct",
     name: "Semoir direct sans labour avec fertilisation",
@@ -274,7 +274,7 @@ const TOOLS_DATABASE = [
     dlc: "Jeu de base",
     speed: "15 à 18 km/h",
     powerRequired: "180 à 350 ch",
-    fs25Bonus: "Score Travail du Sol Precision Farming : 100/100",
+    fs25Bonus: "Score de travail du sol maximal (100/100)",
     purpose: "Semis direct dans les chaumes avec fertilisation simultanée.",
     advantages: [
       "Octroie la note maximale de 100/100 au score environnemental",
@@ -336,7 +336,7 @@ const TOOLS_DATABASE = [
     fs25Bonus: "+2.5% de rendement et enfoncement des petites pierres",
     purpose: "Reconsolidation du lit de semence juste après le semis.",
     advantages: [
-      "Valide l'état 'Roulé' (+2.5% rendement)",
+      "Valide l'état 'roulé' (+2.5% de rendement)",
       "Enfonce les petites pierres dans le sol"
     ],
     precautions: [
@@ -364,7 +364,7 @@ const TOOLS_DATABASE = [
     gameTip: "Opération systématique après chaque coupe de fourrage."
   },
 
-  // ==================== 7. DÉSHERBAGE MÉCANIQUE & PRESSAGE ====================
+  // ==================== 7. DÉSHERBAGE MÉCANIQUE ET PRESSAGE ====================
   {
     id: "fs25-sarcleuse-herse-etrille",
     name: "Sarcleuse et herse étrille mécanique",
@@ -373,7 +373,7 @@ const TOOLS_DATABASE = [
     dlc: "Jeu de base",
     speed: "15 km/h",
     powerRequired: "70 à 150 ch",
-    fs25Bonus: "Score Désherbage Precision Farming 100/100",
+    fs25Bonus: "Score de désherbage maximal (100/100)",
     purpose: "Destruction mécanique des jeunes mauvaises herbes au stade initial.",
     advantages: [
       "Aucun coût d'intrant chimique",
@@ -390,7 +390,7 @@ const TOOLS_DATABASE = [
     name: "Presse et enrubanneuse combinée",
     category: "paille",
     categoryLabel: "Pressage et enrubannage",
-    dlc: "Göweil Pack",
+    dlc: "Extension Göweil",
     speed: "Stationnaire / 15 km/h",
     powerRequired: "160 à 280 ch",
     fs25Bonus: "Enrubannage hermétique de maïs broyé, pulpe de betteraves et fourrages",
@@ -413,7 +413,7 @@ const TOOLS_DATABASE = [
     speed: "15 à 20 km/h",
     powerRequired: "140 à 300 ch",
     fs25Bonus: "Récupération intégrale de la paille",
-    purpose: "Conditionnement des andains de paille (blé, orge, avoine, seigle, triticale) en balles.",
+    purpose: "Conditionnement des andains de paille (blé, orge, avoine, épeautre, seigle, triticale) en balles.",
     advantages: [
       "Approvisionnement en litière pour les étables",
       "Revente de paille"

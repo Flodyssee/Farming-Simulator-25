@@ -3,205 +3,202 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FS25 - Planificateur Assolement, Calendrier et Paperasserie (Le Mechet)</title>
-  <meta name="description" content="Planificateur agronomique multi-parcelles pour Farming Simulator 25 sur la carte Le Mechet avec Precision Farming, Crop Rotation et le mod Paperasserie (RedTape).">
+  <title>FS25 - Planificateur d'assolement, calendrier et paperasserie (Le Mechet)</title>
+  <meta name="description" content="Planificateur agronomique multi-parcelles pour Farming Simulator 25 sur la carte Le Mechet avec l'agriculture de précision, la rotation des cultures et le mod Paperasserie.">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-  <!-- ==================== EN-TÊTE SOBRE ==================== -->
+  <!-- ==================== EN-TÊTE SOBRE ET COMPACT ==================== -->
   <header class="app-header">
     <div class="header-content">
       <div class="brand-wrapper">
-        <div>
-          <div class="d-flex gap-2 align-items-center mb-1 flex-wrap">
-            <span class="brand-badge-game">FS25</span>
-            <span class="brand-badge-map">Carte Le Mechet</span>
-            <span class="brand-badge-pf">Agriculture de précision</span>
-            <span class="brand-badge-cr">Rotation des cultures</span>
-            <span class="brand-badge-redtape">Paperasserie</span>
-          </div>
-          <h1 class="brand-title">Planificateur d'Assolement & Calendrier Mensuel</h1>
-          <p class="brand-subtitle">Gestion multi-parcelles, historique sur 5 ans, calendrier des travaux mois par mois et conformité réglementaire</p>
+        <div class="d-flex gap-2 align-items-center flex-wrap">
+          <span class="brand-badge-game">FS25</span>
+          <span class="brand-badge-map">Carte Le Mechet</span>
+          <span class="brand-badge-pf">Agriculture de précision</span>
+          <span class="brand-badge-cr">Rotation des cultures</span>
+          <span class="brand-badge-redtape">Mod Paperasserie</span>
         </div>
+        <h1 class="brand-title">Planificateur d'assolement et calendrier mensuel</h1>
       </div>
 
       <div class="header-actions">
         <button class="btn btn-secondary btn-sm" id="btn-toggle-theme" title="Changer de thème">
-          <span id="theme-text-indicator">Thème : Auto (Système)</span>
+          <span id="theme-text-indicator">Thème : automatique</span>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- ==================== CONTENEUR PRINCIPAL ==================== -->
-  <main class="app-container">
+  <!-- ==================== DASHBOARD 2 COLONNES ==================== -->
+  <div class="app-container">
+    <div class="dashboard-2col-layout">
 
-    <!-- ==================== BARRE DE GESTION MULTI-PARCELLES ==================== -->
-    <section class="parcel-switcher-card card mb-3">
-      <div class="d-flex justify-between align-items-center mb-2 flex-wrap gap-2">
-        <h2 class="config-section-title mb-0">Mes Parcelles (Exploitation Le Mechet)</h2>
-        <span class="text-xs text-muted">Basculez d'un champ à l'autre en un clic sans perdre vos données</span>
-      </div>
-      <div id="parcel-switcher-tabs" class="parcel-switcher-wrapper">
-        <!-- Rempli dynamiquement par app.js -->
-      </div>
-    </section>
+      <!-- ==================== COLONNE GAUCHE : CONTRÔLES ET PARCELLES ==================== -->
+      <aside class="dashboard-col-left">
 
-    <!-- ==================== FORMULAIRE DE CONFIGURATION DU CHAMP ACTIF (HISTORIQUE 5 ANS) ==================== -->
-    <section class="card config-panel-card mb-4" id="config-form-section">
-      <div class="config-panel-header">
-        <h3 class="section-title-sm">1. Historique des 5 Dernières Cultures de la Parcelle</h3>
-        <p class="text-muted text-xs">Renseignez la culture récoltée cette année (N) et les 4 années précédentes issues du mod Paperasserie (RedTape).</p>
-      </div>
+        <!-- GESTION DES PARCELLES AVEC RÉORGANISATION -->
+        <section class="card mb-3 p-3">
+          <div class="d-flex justify-between align-items-center mb-2">
+            <h2 class="config-section-title mb-0">Mes parcelles</h2>
+            <span class="text-xs text-muted">Classer avec ◀ ▶</span>
+          </div>
+          <div id="parcel-switcher-tabs" class="parcel-switcher-wrapper">
+            <!-- Rempli dynamiquement par app.js -->
+          </div>
+        </section>
 
-      <!-- Grille des 5 années d'historique + gestion des pailles -->
-      <div class="config-grid-history mt-2">
-        <!-- Année N (Récoltée cette année) -->
-        <div class="form-group">
-          <label class="form-label" for="select-crop-n">
-            <span class="label-badge-n">Année N</span> Récolte en cours / récente * :
-          </label>
-          <select id="select-crop-n" class="form-select font-bold select-highlight">
-            <!-- Rempli dynamiquement -->
-          </select>
-        </div>
-
-        <!-- Année N-1 -->
-        <div class="form-group">
-          <label class="form-label" for="select-crop-n1">
-            <span class="label-badge-n-prev">Année N-1</span> Précédent direct :
-          </label>
-          <select id="select-crop-n1" class="form-select">
-            <!-- Rempli dynamiquement -->
-          </select>
-        </div>
-
-        <!-- Année N-2 -->
-        <div class="form-group">
-          <label class="form-label" for="select-crop-n2">
-            <span class="label-badge-n-prev">Année N-2</span> Précédent N-2 :
-          </label>
-          <select id="select-crop-n2" class="form-select">
-            <!-- Rempli dynamiquement -->
-          </select>
-        </div>
-
-        <!-- Année N-3 -->
-        <div class="form-group">
-          <label class="form-label" for="select-crop-n3">
-            <span class="label-badge-n-prev">Année N-3</span> Précédent N-3 :
-          </label>
-          <select id="select-crop-n3" class="form-select">
-            <!-- Rempli dynamiquement -->
-          </select>
-        </div>
-
-        <!-- Année N-4 -->
-        <div class="form-group">
-          <label class="form-label" for="select-crop-n4">
-            <span class="label-badge-n-prev">Année N-4</span> Précédent N-4 :
-          </label>
-          <select id="select-crop-n4" class="form-select">
-            <!-- Rempli dynamiquement -->
-          </select>
-        </div>
-
-        <!-- Gestion des Pailles -->
-        <div class="form-group">
-          <label class="form-label" for="select-straw-handling">
-            <span class="label-badge-straw">Paille</span> Résidus de récolte :
-          </label>
-          <select id="select-straw-handling" class="form-select">
-            <option value="chopped" selected>Pailles broyées par la moissonneuse (ou sans paille)</option>
-            <option value="bales">Andains de paille laissés au sol (Pressage en balles)</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- DISTRIBUTION DU TYPE DE SOL (ORDRE STRICT DEMANDÉ SANS ÉQUIVALENTS ANGLAIS) -->
-      <div class="soil-distribution-section mt-3 pt-3 border-top">
-        <div class="d-flex justify-between align-items-center flex-wrap gap-2 mb-2">
-          <div>
-            <label class="form-label font-bold mb-0">
-              Distribution des Types de Sol (Agriculture de précision) — Total : <span id="soil-total-indicator">100%</span>
-            </label>
-            <div class="text-xs text-muted">Ajustez la répartition en pourcentage selon votre analyse de sol :</div>
+        <!-- FORMULAIRE HISTORIQUE SUR 5 ANS DE LA PARCELLE -->
+        <section class="card config-panel-card p-3">
+          <div class="config-panel-header mb-2">
+            <h3 class="section-title-sm">Historique sur 5 ans (mod Paperasserie)</h3>
+            <p class="text-muted text-xs">Cultures passées enregistrées pour la parcelle active.</p>
           </div>
 
-          <!-- Préréglages rapides -->
-          <div class="soil-presets-wrap">
-            <button type="button" class="btn-soil-preset" data-preset="loamy-sand-pure">100% Sable glaiseux</button>
-            <button type="button" class="btn-soil-preset" data-preset="sandy-loam-pure">100% Glaise sableuse</button>
-            <button type="button" class="btn-soil-preset" data-preset="loam-pure">100% Glaise</button>
-            <button type="button" class="btn-soil-preset" data-preset="silty-clay-pure">100% Argile limoneuse</button>
-            <button type="button" class="btn-soil-preset" data-preset="balanced">Équilibré</button>
-          </div>
-        </div>
+          <div class="config-grid-history">
+            <!-- Année N -->
+            <div class="form-group mb-2">
+              <label class="form-label" for="select-crop-n">
+                <span class="label-badge-n">Année N</span> Récolte en cours ou récente * :
+              </label>
+              <select id="select-crop-n" class="form-select font-bold select-highlight">
+                <!-- Rempli dynamiquement -->
+              </select>
+            </div>
 
-        <!-- Grille ordonnée strictement : 1. Sable glaiseux, 2. Glaise sableuse, 3. Glaise, 4. Argile limoneuse -->
-        <div class="soil-inputs-grid">
-          <!-- 1. Sable glaiseux -->
-          <div class="soil-input-card soil-loamy-sand">
-            <div class="soil-card-header">
-              <span class="soil-badge">1. Sable glaiseux</span>
-              <span class="soil-max-yield">Max 80%</span>
+            <!-- Année N-1 -->
+            <div class="form-group mb-2">
+              <label class="form-label" for="select-crop-n1">
+                <span class="label-badge-n-prev">Année N-1</span> Précédent direct (1 an) :
+              </label>
+              <select id="select-crop-n1" class="form-select">
+                <!-- Rempli dynamiquement -->
+              </select>
             </div>
-            <div class="soil-slider-wrap">
-              <input type="number" id="soil-loamy-sand-val" min="0" max="100" class="form-control form-control-sm text-center" value="0">
-              <span class="soil-percent-sign">%</span>
+
+            <!-- Année N-2 -->
+            <div class="form-group mb-2">
+              <label class="form-label" for="select-crop-n2">
+                <span class="label-badge-n-prev">Année N-2</span> Précédent (2 ans) :
+              </label>
+              <select id="select-crop-n2" class="form-select">
+                <!-- Rempli dynamiquement -->
+              </select>
             </div>
-            <div class="soil-card-hint text-xs text-muted">pH optimal : 6.00</div>
+
+            <!-- Année N-3 -->
+            <div class="form-group mb-2">
+              <label class="form-label" for="select-crop-n3">
+                <span class="label-badge-n-prev">Année N-3</span> Précédent (3 ans) :
+              </label>
+              <select id="select-crop-n3" class="form-select">
+                <!-- Rempli dynamiquement -->
+              </select>
+            </div>
+
+            <!-- Année N-4 -->
+            <div class="form-group mb-2">
+              <label class="form-label" for="select-crop-n4">
+                <span class="label-badge-n-prev">Année N-4</span> Précédent (4 ans) :
+              </label>
+              <select id="select-crop-n4" class="form-select">
+                <!-- Rempli dynamiquement -->
+              </select>
+            </div>
+
+            <!-- Gestion des pailles -->
+            <div class="form-group mb-2">
+              <label class="form-label" for="select-straw-handling">
+                <span class="label-badge-straw">Paille</span> Résidus de récolte :
+              </label>
+              <select id="select-straw-handling" class="form-select">
+                <option value="chopped" selected>Pailles broyées à la moissonneuse</option>
+                <option value="bales">Andains au sol (pressage en balles)</option>
+              </select>
+            </div>
           </div>
 
-          <!-- 2. Glaise sableuse -->
-          <div class="soil-input-card soil-sandy-loam">
-            <div class="soil-card-header">
-              <span class="soil-badge">2. Glaise sableuse</span>
-              <span class="soil-max-yield">Max 100%</span>
-            </div>
-            <div class="soil-slider-wrap">
-              <input type="number" id="soil-sandy-loam-val" min="0" max="100" class="form-control form-control-sm text-center" value="30">
-              <span class="soil-percent-sign">%</span>
-            </div>
-            <div class="soil-card-hint text-xs text-muted">pH optimal : 6.50</div>
-          </div>
+          <!-- DISTRIBUTION DU TYPE DE SOL -->
+          <div class="soil-distribution-section mt-3 pt-3 border-top">
+            <div class="d-flex justify-between align-items-center flex-wrap gap-1 mb-2">
+              <div>
+                <label class="form-label font-bold mb-0 text-xs">
+                  Distribution des sols (agriculture de précision) — Total : <span id="soil-total-indicator">100%</span>
+                </label>
+              </div>
 
-          <!-- 3. Glaise -->
-          <div class="soil-input-card soil-loam">
-            <div class="soil-card-header">
-              <span class="soil-badge">3. Glaise</span>
-              <span class="soil-max-yield">Max 125%</span>
+              <!-- Préréglages rapides -->
+              <div class="soil-presets-wrap">
+                <button type="button" class="btn-soil-preset" data-preset="loamy-sand-pure">100% sable</button>
+                <button type="button" class="btn-soil-preset" data-preset="sandy-loam-pure">100% glaise sab.</button>
+                <button type="button" class="btn-soil-preset" data-preset="loam-pure">100% glaise</button>
+                <button type="button" class="btn-soil-preset" data-preset="silty-clay-pure">100% argile</button>
+                <button type="button" class="btn-soil-preset" data-preset="balanced">Équilibré</button>
+              </div>
             </div>
-            <div class="soil-slider-wrap">
-              <input type="number" id="soil-loam-val" min="0" max="100" class="form-control form-control-sm text-center" value="60">
-              <span class="soil-percent-sign">%</span>
-            </div>
-            <div class="soil-card-hint text-xs text-muted">pH optimal : 6.75</div>
-          </div>
 
-          <!-- 4. Argile limoneuse -->
-          <div class="soil-input-card soil-silty-clay">
-            <div class="soil-card-header">
-              <span class="soil-badge">4. Argile limoneuse</span>
-              <span class="soil-max-yield">Max 110%</span>
-            </div>
-            <div class="soil-slider-wrap">
-              <input type="number" id="soil-silty-clay-val" min="0" max="100" class="form-control form-control-sm text-center" value="10">
-              <span class="soil-percent-sign">%</span>
-            </div>
-            <div class="soil-card-hint text-xs text-muted">pH optimal : 7.00</div>
-          </div>
-        </div>
-      </div>
-    </section>
+            <!-- Grille ordonnée strictement -->
+            <div class="soil-inputs-grid-compact">
+              <!-- 1. Sable glaiseux -->
+              <div class="soil-input-card-compact">
+                <div class="soil-card-header text-xs">
+                  <span class="soil-badge">1. Sable glaiseux</span>
+                  <span class="soil-max-yield">Max 80%</span>
+                </div>
+                <div class="soil-slider-wrap">
+                  <input type="number" id="soil-loamy-sand-val" min="0" max="100" class="form-control form-control-sm text-center" value="0">
+                  <span class="soil-percent-sign text-xs">%</span>
+                </div>
+              </div>
 
-    <!-- ==================== RÉSULTATS D'ANALYSE & CALENDRIER MENSUEL ==================== -->
-    <div id="analysis-results-container">
-      <!-- Rempli en direct par app.js -->
+              <!-- 2. Glaise sableuse -->
+              <div class="soil-input-card-compact">
+                <div class="soil-card-header text-xs">
+                  <span class="soil-badge">2. Glaise sableuse</span>
+                  <span class="soil-max-yield">Max 100%</span>
+                </div>
+                <div class="soil-slider-wrap">
+                  <input type="number" id="soil-sandy-loam-val" min="0" max="100" class="form-control form-control-sm text-center" value="30">
+                  <span class="soil-percent-sign text-xs">%</span>
+                </div>
+              </div>
+
+              <!-- 3. Glaise -->
+              <div class="soil-input-card-compact">
+                <div class="soil-card-header text-xs">
+                  <span class="soil-badge">3. Glaise</span>
+                  <span class="soil-max-yield">Max 125%</span>
+                </div>
+                <div class="soil-slider-wrap">
+                  <input type="number" id="soil-loam-val" min="0" max="100" class="form-control form-control-sm text-center" value="60">
+                  <span class="soil-percent-sign text-xs">%</span>
+                </div>
+              </div>
+
+              <!-- 4. Argile limoneuse -->
+              <div class="soil-input-card-compact">
+                <div class="soil-card-header text-xs">
+                  <span class="soil-badge">4. Argile limoneuse</span>
+                  <span class="soil-max-yield">Max 110%</span>
+                </div>
+                <div class="soil-slider-wrap">
+                  <input type="number" id="soil-silty-clay-val" min="0" max="100" class="form-control form-control-sm text-center" value="10">
+                  <span class="soil-percent-sign text-xs">%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </aside>
+
+      <!-- ==================== COLONNE DROITE : RÉSULTATS ET CALENDRIER ==================== -->
+      <main class="dashboard-col-right" id="analysis-results-container">
+        <!-- Rempli en direct par app.js -->
+      </main>
+
     </div>
-
-  </main>
+  </div>
 
   <!-- SCRIPTS -->
   <script src="js/data/tools-database.js"></script>
